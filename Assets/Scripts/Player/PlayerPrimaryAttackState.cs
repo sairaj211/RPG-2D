@@ -17,21 +17,22 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        m_InputMovement.x = 0; // fix on attack direction
 
         if (m_ComboCounter > 2 || Time.time >= m_LastTimeAttacked + m_ComboWindow)
         {
             m_ComboCounter = 0;
         }
         
-        m_Animator.SetInteger(PlayerStatesAnimationHash.COMBO_COUNTER, m_ComboCounter);
+        m_Animator.SetInteger(EntityStatesAnimationHash.COMBO_COUNTER, m_ComboCounter);
 
         m_StateTimer = m_StopDelayDuringAttack; // 0.1f
 
         // set attack direction        
         m_AttackDirection= m_Player.m_FacingDireciton;
-        if (m_Movement.x != 0f)
+        if (m_InputMovement.x != 0f)
         {
-            m_AttackDirection = m_Movement.x;
+            m_AttackDirection = m_InputMovement.x;
         }
         
         m_Player.SetVelocity(m_Player.m_AttackMovements[m_ComboCounter].x * m_AttackDirection,

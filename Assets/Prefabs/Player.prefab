@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3165442162017066025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5279403806500230202}
+  m_Layer: 0
+  m_Name: AttackCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5279403806500230202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3165442162017066025}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.971, y: -0.325, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6366907435850689478}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5297857416370571213
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,9 +166,10 @@ GameObject:
   - component: {fileID: 322398532952665994}
   - component: {fileID: 8572991576475161896}
   - component: {fileID: 369225644465329042}
-  m_Layer: 0
+  - component: {fileID: 5734478907602895153}
+  m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,6 +190,7 @@ Transform:
   - {fileID: 5047753724293250196}
   - {fileID: 6596112956512112870}
   - {fileID: 3346047771770810163}
+  - {fileID: 5279403806500230202}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &322398532952665994
@@ -172,6 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cc249b374013743b5a5f8b6a63b9d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_AttackCheck: {fileID: 5279403806500230202}
+  m_AttackCheckRadius: 0.8
   m_GroundCheck: {fileID: 6596112956512112870}
   m_GroundCheckDistance: 0.2
   m_WallCheck: {fileID: 3346047771770810163}
@@ -179,11 +214,15 @@ MonoBehaviour:
   m_GroundLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  m_KnockbackDirection: {x: 0, y: 0}
+  m_KnockbackDuration: 0
   m_Animator: {fileID: 2960318544724566114}
   m_Rigidbody2D: {fileID: 369225644465329042}
+  m_EntityFX: {fileID: 0}
   m_MoveSpeed: 8
   m_JumpVelocity: 15
   m_FallSpeed: 0.8
+  m_CounterAttackDuration: 0.15
   m_DashSpeed: 25
   m_DashDuration: 0.2
   m_DashCooldown: 0.8
@@ -257,6 +296,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &5734478907602895153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6098425847294146901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc9e7f97cc9c514a981eb86ac253ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HitMaterial: {fileID: 2100000, guid: 60c3f90e90d7b2e4d922f0ad865e40c1, type: 2}
+  m_FlashTime: 0.2
 --- !u!1 &7276197411532267059
 GameObject:
   m_ObjectHideFlags: 0

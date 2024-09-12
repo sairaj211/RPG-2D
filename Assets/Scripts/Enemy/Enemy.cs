@@ -7,10 +7,15 @@ namespace Enemy
     {
         [Header("Settings")] 
         public float m_MoveSpeed;
-
         public float m_IdleTime;
         public float m_FacingThreshold = 0.5f;
-        public float m_BattleTime; 
+        public float m_BattleTime;
+        
+        [Header("Stun Info")]
+        public float m_StunDuration;
+        public Vector2 m_StunDirection;
+        protected bool m_CanBeStunned;
+        [SerializeField] private GameObject m_CounterImage;
         
         [Header("Attack Info")]
         [SerializeField] private float m_Range;
@@ -38,12 +43,33 @@ namespace Enemy
             base.Update();
 
             m_EnemyStateMachine.m_CurrentState.Update();
-            
-            
         }
         
         public void AnimationTrigger() => m_EnemyStateMachine.m_CurrentState.AnimationFinishTrigger();
 
+        public virtual void OpenCounterAttackWindow()
+        {
+            m_CanBeStunned = true;
+            m_CounterImage.SetActive(true);
+        }
+        
+        public virtual void CloseCounterAttackWindow()
+        {
+            m_CanBeStunned = false;
+            m_CounterImage.SetActive(false);
+        }
+
+        public virtual bool CanBeStunned()
+        {
+            if (m_CanBeStunned)
+            {
+                CloseCounterAttackWindow();
+                return true;
+            }
+
+            return false;
+        }
+        
         public RaycastHit2D IsPlayerDetected()
         {
             return Physics2D.Raycast(m_WallCheck.position, Vector2.right * m_FacingDireciton, m_Range,

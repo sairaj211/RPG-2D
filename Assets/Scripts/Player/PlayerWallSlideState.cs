@@ -23,13 +23,13 @@ public class PlayerWallSlideState : PlayerState
         //     m_PlayerStateMachine.ChangeState(m_Player.m_IdleState);
         // }
         
-        if (m_Movement.x != 0f && Math.Abs(m_Player.m_FacingDireciton - m_Movement.x) > 0.01f)
+        if (m_InputMovement.x != 0f && Math.Abs(m_Player.m_FacingDireciton - m_InputMovement.x) > 0.01f)
         {
             m_PlayerStateMachine.ChangeState(m_Player.m_IdleState);
         }
 
         float moveDownSpeed = 0.7f;
-        if (m_Movement.y < 0f)
+        if (m_InputMovement.y < 0f)
         {
             moveDownSpeed = 1f;
         }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerStatesAnimationHash 
+public class EntityStatesAnimationHash 
 {
     public static readonly int IDLE = Animator.StringToHash("Idle");
     public static readonly int MOVE = Animator.StringToHash("Move");
@@ -13,5 +13,8 @@ public class PlayerStatesAnimationHash
     
     //Enemy state
     public static readonly int BATTLE = Animator.StringToHash("BATTLE");
+    public static readonly int STUNNED = Animator.StringToHash("Stunned");
+    public static readonly int COUNTERATTACK = Animator.StringToHash("CounterAttack");
+    public static readonly int SUCCESSFULCOUNTERATTACK = Animator.StringToHash("SuccessfulCounterAttack");
     
 }

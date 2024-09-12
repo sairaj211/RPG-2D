@@ -10,7 +10,7 @@
         public override void Enter()
         {
             base.Enter();
-            m_StateTimer = m_Enemy.m_IdleTime;
+            m_StateTimer = m_EnemySkeleton.m_IdleTime;
         }
 
         public override void Update()
@@ -19,7 +19,7 @@
 
             if (m_StateTimer < 0f)
             {
-                m_enemyStateMachine.ChangeState(m_Enemy.m_MoveState);
+                m_enemyStateMachine.ChangeState(m_EnemySkeleton.m_MoveState);
             }
         }
     }

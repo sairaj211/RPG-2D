@@ -10,12 +10,12 @@
         {
             base.Update();
             
-            m_Enemy.SetVelocity(m_Enemy.m_MoveSpeed * m_Enemy.m_FacingDireciton, base.m_Rigidbody2D.velocityY);
+            m_EnemySkeleton.SetVelocity(m_EnemySkeleton.m_MoveSpeed * m_EnemySkeleton.m_FacingDireciton, base.m_Rigidbody2D.velocityY);
             
-            if (m_Enemy.IsWallDetected() || !m_Enemy.IsGrounded())
+            if (m_EnemySkeleton.IsWallDetected() || !m_EnemySkeleton.IsGrounded())
             {
-                m_Enemy.Flip();
-                m_enemyStateMachine.ChangeState(m_Enemy.m_IdleState);
+                m_EnemySkeleton.Flip();
+                m_enemyStateMachine.ChangeState(m_EnemySkeleton.m_IdleState);
             }
         }
 

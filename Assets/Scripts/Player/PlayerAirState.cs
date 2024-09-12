@@ -22,9 +22,9 @@ public class PlayerAirState : PlayerState
         }
 
         // Falling down 
-        if (m_Movement.x != 0f)
+        if (m_InputMovement.x != 0f)
         {
-              m_Player.SetVelocity(m_Movement.x * m_Player.m_MoveSpeed * m_Player.m_FallSpeed, m_Rigidbody2D.velocityY); 
+              m_Player.SetVelocity(m_InputMovement.x * m_Player.m_MoveSpeed * m_Player.m_FallSpeed, m_Rigidbody2D.velocityY); 
         }
     }
 }

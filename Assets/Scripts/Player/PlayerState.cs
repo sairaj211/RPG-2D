@@ -4,7 +4,7 @@ public class PlayerState
 {
     protected PlayerStateMachine m_PlayerStateMachine;
     protected Player m_Player;
-    protected Vector2 m_Movement;
+    protected Vector2 m_InputMovement;
     protected Rigidbody2D m_Rigidbody2D;
     protected Animator m_Animator;
 
@@ -48,7 +48,9 @@ public class PlayerState
     
     private void PlayerInput()
     {
-        m_Movement.x = Input.GetAxisRaw("Horizontal");//m_Player.m_PlayerControls.Movement.Move.ReadValue<Vector2>().x;
-        m_Movement.y = Input.GetAxisRaw("Vertical");  //m_Player.m_PlayerControls.Movement.Move.ReadValue<Vector2>().y;
+        m_InputMovement.x = Input.GetAxisRaw("Horizontal");//m_Player.m_PlayerControls.Movement.Move.ReadValue<Vector2>().x;
+        m_InputMovement.y = Input.GetAxisRaw("Vertical");  //m_Player.m_PlayerControls.Movement.Move.ReadValue<Vector2>().y;
+
+        m_InputMovement.Normalize();
     }
 }

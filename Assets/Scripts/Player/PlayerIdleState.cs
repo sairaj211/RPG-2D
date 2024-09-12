@@ -19,12 +19,12 @@ public class PlayerIdleState : PlayerGroundedState
     {
         base.Update();
 
-        if ((Math.Abs(m_Movement.x - m_Player.m_FacingDireciton) < 0.01f) && m_Player.IsWallDetected())
+        if ((Math.Abs(m_InputMovement.x - m_Player.m_FacingDireciton) < 0.01f) && m_Player.IsWallDetected())
         {
             return;
         }
         
-        if (m_Movement.x != 0 && !m_Player.m_IsBusy)
+        if (m_InputMovement.x != 0 && !m_Player.m_IsBusy)
         {
             m_PlayerStateMachine.ChangeState(m_Player.m_MoveState);
         }

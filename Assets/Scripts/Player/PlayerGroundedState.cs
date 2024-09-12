@@ -25,5 +25,10 @@ public class PlayerGroundedState : PlayerState
         {
             m_PlayerStateMachine.ChangeState(m_Player.m_JumpState);
         }
+        
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            m_PlayerStateMachine.ChangeState(m_Player.m_PlayerCounterAttackState);
+        }
     }
 }
