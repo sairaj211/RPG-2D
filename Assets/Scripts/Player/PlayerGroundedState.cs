@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerGroundedState : PlayerState
 {
-    public PlayerGroundedState(Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
+    public PlayerGroundedState(Player.Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
         : base(_player, _playerStateMachine, _animHash)
     {
     }
@@ -10,6 +10,11 @@ public class PlayerGroundedState : PlayerState
     public override void Update()
     {
         base.Update();
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            m_PlayerStateMachine.ChangeState(m_Player.m_PlayerAimSwordState);
+        }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerAnimationTriggers : MonoBehaviour
 {
-    private Player m_Player => GetComponentInParent<Player>();
+    private Player.Player m_Player => GetComponentInParent<Player.Player>();
 
     private void AnimationTrigger()
     {
@@ -20,5 +20,10 @@ public class PlayerAnimationTriggers : MonoBehaviour
                 enemy.Damage();
             }
         }
+    }
+
+    private void ThrowSword()
+    {
+        SkillManager.Instance.m_SwordSkill.CreateSword();
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerAirState : PlayerState
 {
-    public PlayerAirState(Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
+    public PlayerAirState(Player.Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
         : base(_player, _playerStateMachine, _animHash)
     {
     }

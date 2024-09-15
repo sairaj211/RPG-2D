@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerGroundedState
 {
-    public PlayerIdleState(Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
+    public PlayerIdleState(Player.Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
         : base(_player, _playerStateMachine, _animHash)
     {
     }

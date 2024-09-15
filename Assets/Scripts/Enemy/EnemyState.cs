@@ -27,7 +27,7 @@ namespace Enemy
             m_Rigidbody2D = m_EnemyBase.GetRigidbody();
             m_TriggerCalled = false;
             m_Animator.SetBool(m_AnimationHash, true);
-            m_Player = GameObject.FindWithTag("Player").transform;
+            m_Player = PlayerManager.Instance.m_Player.transform;
         }
 
         public virtual void Update()

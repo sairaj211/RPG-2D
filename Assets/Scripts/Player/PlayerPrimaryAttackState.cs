@@ -9,7 +9,7 @@ public class PlayerPrimaryAttackState : PlayerState
     private const float m_StopDelayDuringAttack = 0.15f;
     private float m_AttackDirection;
     
-    public PlayerPrimaryAttackState(Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
+    public PlayerPrimaryAttackState(Player.Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
         : base(_player, _playerStateMachine, _animHash)
     {
     }
@@ -58,7 +58,7 @@ public class PlayerPrimaryAttackState : PlayerState
     {
         base.Exit();
 
-        m_Player.StartCoroutine(nameof(Player.BusyFor), m_StopDelayDuringAttack); // 0.15f
+        m_Player.StartCoroutine(nameof(Player.Player.BusyFor), m_StopDelayDuringAttack); // 0.15f
         
         m_ComboCounter++;
         m_LastTimeAttacked = Time.time;

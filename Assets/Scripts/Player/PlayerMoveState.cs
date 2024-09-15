@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMoveState : PlayerGroundedState
 {
-    public PlayerMoveState(Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
+    public PlayerMoveState(Player.Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
         : base(_player, _playerStateMachine, _animHash)
     {
     }

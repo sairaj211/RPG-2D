@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerWallJumpState : PlayerState
 {
-    public PlayerWallJumpState(Player _player, PlayerStateMachine _playerStateMachine, int _animHash) 
+    public PlayerWallJumpState(Player.Player _player, PlayerStateMachine _playerStateMachine, int _animHash) 
         : base(_player, _playerStateMachine, _animHash)
     {
     }

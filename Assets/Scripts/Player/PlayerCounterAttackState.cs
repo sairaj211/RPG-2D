@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerCounterAttackState : PlayerState
 {
-    public PlayerCounterAttackState(Player _player, PlayerStateMachine _playerStateMachine, int _animHash) 
+    public PlayerCounterAttackState(Player.Player _player, PlayerStateMachine _playerStateMachine, int _animHash) 
         : base(_player, _playerStateMachine, _animHash)
     {
     }

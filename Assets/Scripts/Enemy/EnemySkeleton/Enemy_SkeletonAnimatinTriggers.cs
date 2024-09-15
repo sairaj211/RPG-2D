@@ -17,7 +17,7 @@ namespace Enemy.EnemySkeleton
 
             foreach (Collider2D hit in m_Collider2D)
             {
-                if (hit.TryGetComponent<Player>(out var player))
+                if (hit.TryGetComponent<Player.Player>(out var player))
                 {
                     player.Damage();
                 }

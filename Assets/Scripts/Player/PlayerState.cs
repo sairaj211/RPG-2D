@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerState
 {
     protected PlayerStateMachine m_PlayerStateMachine;
-    protected Player m_Player;
+    protected Player.Player m_Player;
     protected Vector2 m_InputMovement;
     protected Rigidbody2D m_Rigidbody2D;
     protected Animator m_Animator;
@@ -12,7 +12,7 @@ public class PlayerState
     protected float m_StateTimer;
     protected bool m_TriggerCalled;
 
-    public PlayerState(Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
+    public PlayerState(Player.Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
     {
         m_Player = _player;
         m_PlayerStateMachine = _playerStateMachine;

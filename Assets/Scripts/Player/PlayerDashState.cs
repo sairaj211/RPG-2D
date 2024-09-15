@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerDashState : PlayerState
 {
-    public PlayerDashState(Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
+    public PlayerDashState(Player.Player _player, PlayerStateMachine _playerStateMachine, int _animHash)
         : base(_player, _playerStateMachine, _animHash)
     {
     }
@@ -10,6 +10,9 @@ public class PlayerDashState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        
+        m_Player.m_SkillManager.m_CloneSkill.CreateClone(m_Player.transform);
+        
         m_StateTimer = m_Player.m_DashDuration;
     }
 
