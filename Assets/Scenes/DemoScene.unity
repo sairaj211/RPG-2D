@@ -523,6 +523,10 @@ PrefabInstance:
       propertyPath: m_CounterImage
       value: 
       objectReference: {fileID: 1309527886}
+    - target: {fileID: 8953778098186812456, guid: 503610322dac55e45af27fd07a6c6917, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -3548,6 +3552,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &1818626512 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4811551003319668472, guid: 8d052f29a96e4144a9a1f0d55f298be5, type: 3}
+  m_PrefabInstance: {fileID: 676548557655008405}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1918856374 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2379653145730385020, guid: 503610322dac55e45af27fd07a6c6917, type: 3}
@@ -3750,8 +3759,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Cooldown: 0
   m_SwordPrefab: {fileID: 7052733366115700663, guid: fcb6210ed8f5b3848965edc9502facd4, type: 3}
-  m_LaunchDirection: {x: 15, y: 5}
-  m_SwordGravity: 4
+  m_LaunchForce: {x: 35, y: 25}
+  m_SwordGravity: 4.5
+  m_NumberofDots: 20
+  m_SpaceBetweenDots: 0.07
+  m_DotsPrefab: {fileID: 2366660898815821630, guid: a54fc84a295409a4cb4e0c74883355e3, type: 3}
+  m_DotsParent: {fileID: 1818626512}
 --- !u!1001 &676548557655008405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3760,6 +3773,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 322398532952665994, guid: 8d052f29a96e4144a9a1f0d55f298be5, type: 3}
+      propertyPath: m_SwordReturnImpact
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6098425847294146901, guid: 8d052f29a96e4144a9a1f0d55f298be5, type: 3}
       propertyPath: m_Name
       value: Player

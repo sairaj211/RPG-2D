@@ -1,3 +1,4 @@
+using Player.Skills.Sword;
 using UnityEngine;
 
 public class PlayerGroundedState : PlayerState
@@ -11,7 +12,7 @@ public class PlayerGroundedState : PlayerState
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !m_Player.m_Sword)
         {
             m_PlayerStateMachine.ChangeState(m_Player.m_PlayerAimSwordState);
         }
@@ -34,6 +35,11 @@ public class PlayerGroundedState : PlayerState
         if (Input.GetKeyDown(KeyCode.Q))
         {
             m_PlayerStateMachine.ChangeState(m_Player.m_PlayerCounterAttackState);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && m_Player.m_Sword)
+        {
+            m_Player.m_Sword.GetComponent<Sword_SkillController>().ReturnSword();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Player
         public float m_JumpVelocity;
         public float m_FallSpeed;
         public float m_CounterAttackDuration = 0.2f;
+        public float m_SwordReturnImpact;
         public bool m_IsBusy { private set; get; }
         [Header("Dash")]
         public float m_DashSpeed;
@@ -22,6 +23,8 @@ namespace Player
         public float m_WallJumpDuration;
         [Header("Attack Details")] 
         public Vector2[] m_AttackMovements;
+        
+        public GameObject m_Sword { get; private set; }
 
     
         #region STATES
@@ -117,6 +120,17 @@ namespace Player
             
                 m_PlayerStateMachine.ChangeState(m_DashState);
             }
+        }
+
+        public void AssignNewSword(GameObject _sword)
+        {
+            m_Sword = _sword;
+        }
+
+        public void CatchSword()
+        {
+            m_PlayerStateMachine.ChangeState(m_PlayerCatchSwordState);
+            Destroy(m_Sword);
         }
     }
 }
