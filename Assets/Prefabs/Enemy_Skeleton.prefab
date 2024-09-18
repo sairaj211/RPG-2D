@@ -12,17 +12,21 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 369225644465329042, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2960318544724566114, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 2cf7b08fded33574d81c83a5f4e645a1, type: 2}
     - target: {fileID: 3346047771770810163, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.235
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 3346047771770810163, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.185
+      value: -0.226
       objectReference: {fileID: 0}
     - target: {fileID: 4159403550844341831, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60,13 +64,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 6098425847294146901, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6366907435850689478, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.56
+      value: -34.18
       objectReference: {fileID: 0}
     - target: {fileID: 6366907435850689478, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.93
+      value: 5.28
       objectReference: {fileID: 0}
     - target: {fileID: 6366907435850689478, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_LocalPosition.z
@@ -102,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6596112956512112870, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.106
+      value: 0.488
       objectReference: {fileID: 0}
     - target: {fileID: 6596112956512112870, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_LocalPosition.y
@@ -169,6 +177,7 @@ MonoBehaviour:
   m_BattleTime: 4
   m_StunDuration: 1
   m_StunDirection: {x: 5, y: 7}
+  m_CounterImage: {fileID: 0}
   m_Range: 5
   m_PlayerLayerMask:
     serializedVersion: 2

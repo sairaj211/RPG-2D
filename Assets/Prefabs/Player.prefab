@@ -224,6 +224,7 @@ MonoBehaviour:
   m_JumpVelocity: 15
   m_FallSpeed: 0.8
   m_CounterAttackDuration: 0.15
+  m_SwordReturnImpact: 3
   m_DashSpeed: 25
   m_DashDuration: 0.2
   m_WallJumpVelocity: 5

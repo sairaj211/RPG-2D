@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Player.Skills.Sword
@@ -13,7 +14,16 @@ namespace Player.Skills.Sword
 
         private bool m_CanRotate;
         private bool m_IsReturning;
-    
+
+        [SerializeField] private int m_NumberOfBounces = 4;
+        [SerializeField] private float m_BouncingRadius;
+        [SerializeField] private float m_BounceSpeed;
+        [SerializeField] private float m_ChangeIndexDistance;
+        [SerializeField] private LayerMask m_EnemyLayerMask;
+        private bool m_IsBouncing = true;
+        private List<Transform> m_EnemyTarget = new List<Transform>(10);
+        private int m_TargetIndex;
+        
         private void Awake()
         {
             m_CanRotate = true;
@@ -58,13 +68,59 @@ namespace Player.Skills.Sword
                     m_Player.CatchSword();
                 }
             }
+
+            if (m_IsBouncing && m_EnemyTarget.Count > 0)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, m_EnemyTarget[m_TargetIndex].position,
+                    m_BounceSpeed * Time.deltaTime);
+
+                if (Vector2.Distance(transform.position, m_EnemyTarget[m_TargetIndex].position) < m_ChangeIndexDistance)
+                {
+                    m_TargetIndex++;
+                    m_NumberOfBounces--;
+
+                    if (m_NumberOfBounces == 0)
+                    {
+                        m_IsBouncing = false;
+                        m_IsReturning = true;
+                    }
+
+                    if (m_TargetIndex >= m_EnemyTarget.Count)
+                    {
+                        m_TargetIndex = 0;
+                    }
+                }
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if(m_IsReturning)   return;
+
+            if (other.GetComponent<Enemy.Enemy>() != null)
+            {
+                if (m_IsBouncing && m_EnemyTarget.Count <= 0)
+                {
+                    Collider2D[] colliders =
+                        Physics2D.OverlapCircleAll(transform.position, m_BouncingRadius, m_EnemyLayerMask);
+
+                    foreach (var hit in colliders)
+                    {
+                        if (hit.GetComponent<Enemy.Enemy>() != null)
+                        {
+                            m_EnemyTarget.Add(hit.transform);
+                        }
+                    }
+                }
+            }
             
-            m_Animator.SetBool(EntityStatesAnimationHash.SWORD_ROTATE, false);
+            StuckInEnemy(other);
+
+        }
+        
+        private void StuckInEnemy(Collider2D other)
+        {
+
 
             m_CanRotate = false;
             m_CircleCollider2D.enabled = false;
@@ -72,6 +128,12 @@ namespace Player.Skills.Sword
             m_Rigidbody2D.isKinematic = true;
             m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
 
+            if (m_IsBouncing && m_EnemyTarget.Count > 0)
+            {
+                return;
+            }
+            
+            m_Animator.SetBool(EntityStatesAnimationHash.SWORD_ROTATE, false);
             transform.parent = other.transform;
         }
     }

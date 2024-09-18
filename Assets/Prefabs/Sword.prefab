@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8151786662503663932}
   - component: {fileID: 5584307758352750622}
   - component: {fileID: 5436574506629608014}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,6 +159,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ReturnSpeed: 25
   m_DestroyThreshold: 1
+  m_NumberOfBounces: 4
+  m_BouncingRadius: 10
+  m_BounceSpeed: 20
+  m_ChangeIndexDistance: 0.1
+  m_EnemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!50 &887340231847343031
 Rigidbody2D:
   serializedVersion: 4
