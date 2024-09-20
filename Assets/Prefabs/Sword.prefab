@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 3326498072945391678}
   - component: {fileID: -7313610464738233126}
   - component: {fileID: 887340231847343031}
-  - component: {fileID: 3223013059677770604}
+  - component: {fileID: 1092735223840036203}
   m_Layer: 9
   m_Name: Sword
   m_TagString: Untagged
@@ -159,13 +159,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ReturnSpeed: 25
   m_DestroyThreshold: 1
-  m_NumberOfBounces: 4
-  m_BouncingRadius: 10
   m_BounceSpeed: 20
-  m_ChangeIndexDistance: 0.1
+  m_BouncingRadius: 10
   m_EnemyLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  m_ChangeIndexDistance: 0.1
+  m_HitRadius: 1
+  m_MoveSpeed: 1.5
 --- !u!50 &887340231847343031
 Rigidbody2D:
   serializedVersion: 4
@@ -193,8 +194,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &3223013059677770604
-CircleCollider2D:
+--- !u!61 &1092735223840036203
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -227,5 +228,15 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0.28441542, y: 0.012365922}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.0494636, y: 0.35697374}
+  m_EdgeRadius: 0

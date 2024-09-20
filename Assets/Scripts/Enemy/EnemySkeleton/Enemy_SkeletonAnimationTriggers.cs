@@ -2,7 +2,7 @@
 
 namespace Enemy.EnemySkeleton
 {
-    public class Enemy_SkeletonAnimatinTriggers : MonoBehaviour
+    public class Enemy_SkeletonAnimationTriggers : MonoBehaviour
     {
         private Enemy m_Enemy => GetComponentInParent<Enemy>();
 
