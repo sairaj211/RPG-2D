@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Enemy
@@ -10,6 +11,7 @@ namespace Enemy
         public float m_IdleTime;
         public float m_FacingThreshold = 0.5f;
         public float m_BattleTime;
+        private float m_DefaultMoveSpeed;
         
         [Header("Stun Info")]
         public float m_StunDuration;
@@ -30,6 +32,7 @@ namespace Enemy
         {
             base.Awake();
             m_EnemyStateMachine = new EnemyStateMachine();
+            m_DefaultMoveSpeed = m_MoveSpeed;
         }
 
         protected override void Start()
@@ -43,6 +46,29 @@ namespace Enemy
             base.Update();
 
             m_EnemyStateMachine.m_CurrentState.Update();
+        }
+
+        protected virtual void FreezeTime(bool _timeFrozen)
+        {
+            if (_timeFrozen)
+            {
+                m_MoveSpeed = 0f;
+                this.GetAnimator().speed = 0f;
+            }
+            else
+            {
+                m_MoveSpeed = m_DefaultMoveSpeed;
+                this.GetAnimator().speed = 1f;
+            }
+        } 
+
+        private IEnumerator FreezeTimeFor(float _seconds)
+        {
+            FreezeTime(true);
+
+            yield return new WaitForSeconds(_seconds);
+            
+            FreezeTime(false);
         }
         
         public void AnimationTrigger() => m_EnemyStateMachine.m_CurrentState.AnimationFinishTrigger();
@@ -82,6 +108,15 @@ namespace Enemy
             
             Gizmos.color = Color.green;
             Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + m_AttackDistance * m_FacingDireciton, transform.position.y));
+        }
+
+        public override void Damage(float _freezeTime)
+        {
+            Debug.Log("DAMAGE TAKEN");
+            
+            base.Damage();
+            
+            StartCoroutine(FreezeTimeFor(_freezeTime));
         }
     }
 }

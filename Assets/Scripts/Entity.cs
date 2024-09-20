@@ -53,8 +53,9 @@ public class Entity : MonoBehaviour
     {
         m_EntityFX.StartCoroutine(m_EntityFX.FlashFX());
         StartCoroutine(HitKnockback());
-        //Debug.Log(gameObject.name + " was damaged.");
     }
+    
+    public virtual void Damage(float _freezeTime){}
 
     private IEnumerator HitKnockback()
     {

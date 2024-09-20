@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -6,8 +7,12 @@ namespace Player.Skills.Sword
 {
     public class Sword_SkillController : MonoBehaviour
     {
-        [SerializeField] private float m_ReturnSpeed = 12f;
+        [SerializeField] private float m_MaxReturnSpeed = 12f;
+        [SerializeField] private float m_MinReturnSpeed = 12f;
         [SerializeField] private float m_DestroyThreshold = 0.5f;
+        [SerializeField] private float m_FreezeTime;
+        [SerializeField] private float m_MaxDistance;
+        [SerializeField] private float m_MinDistace;
         private Animator m_Animator;
         private Rigidbody2D m_Rigidbody2D;
         private BoxCollider2D m_BoxCollider2D;
@@ -41,6 +46,9 @@ namespace Player.Skills.Sword
         private float m_HitTimer;
         private float m_HitCooldown;
         private float m_SpinDirection;
+
+        private float m_CurrentSpeed;
+
         
         private void Awake()
         {
@@ -102,10 +110,22 @@ namespace Player.Skills.Sword
 
             if (m_IsReturning)
             {
+                var m_Distance = Vector2.Distance(transform.position, m_Player.transform.position);
+                
+                m_CurrentSpeed = m_MinReturnSpeed;
+                if (m_Distance > m_MinDistace)
+                {
+                    float t = Mathf.InverseLerp(m_MaxDistance, m_MinDistace, m_Distance);
+                    m_CurrentSpeed = Mathf.Lerp(m_MaxReturnSpeed, m_MinReturnSpeed, t);
+                }
+                
+                Debug.Log("Speed : " + m_CurrentSpeed);
+                
                 transform.position = Vector2.MoveTowards(transform.position, m_Player.transform.position,
-                    m_ReturnSpeed * Time.deltaTime);
+                    m_CurrentSpeed * Time.deltaTime);
 
-                if (Vector2.Distance(transform.position, m_Player.transform.position) < m_DestroyThreshold)
+               
+                if (m_Distance < m_DestroyThreshold)
                 {
                     m_Player.CatchSword();
                 }
@@ -118,7 +138,6 @@ namespace Player.Skills.Sword
 
         private void SpinLogic()
         {
-
             if (m_IsSpinning)
             {
                 if (Vector2.Distance(transform.position, m_Player.transform.position) > m_MaxTravelDistance
@@ -164,18 +183,6 @@ namespace Player.Skills.Sword
             }
         }
         
-        private void DamageEnemiesInRange()
-        {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, m_HitRadius, m_EnemyLayerMask);
-
-            foreach (var hit in colliders)
-            {
-                if (hit.TryGetComponent(out Enemy.Enemy enemy))
-                {
-                    enemy.Damage();
-                }
-            }
-        }
         private void StopWhenHit()
         {
 
@@ -192,7 +199,7 @@ namespace Player.Skills.Sword
                 
                 if (Vector2.Distance(transform.position, m_EnemyTarget[m_TargetIndex].position) < m_ChangeIndexDistance)
                 {
-                    m_EnemyTarget[m_TargetIndex].GetComponent<Enemy.Enemy>().Damage();
+                    DealDamage(m_EnemyTarget[m_TargetIndex].GetComponent<Enemy.Enemy>());
                     m_TargetIndex++;
                     m_NumberOfBounces--;
 
@@ -213,28 +220,52 @@ namespace Player.Skills.Sword
         private void OnTriggerEnter2D(Collider2D other)
         {
             if(m_IsReturning)   return;
-
-            //Setup bounce targets
-            if (other.GetComponent<Enemy.Enemy>() != null)
+            if(m_IsSpinning)    return;
+            
+            if (other.TryGetComponent(out Enemy.Enemy enemy))
             {
-                if (m_IsBouncing && m_EnemyTarget.Count <= 0)
-                {
-                    Collider2D[] colliders =
-                        Physics2D.OverlapCircleAll(transform.position, m_BouncingRadius, m_EnemyLayerMask);
+                DealDamage(enemy);
+            }
+            
+            GetTargetsInBouncingRadius();
+            StuckInEnemy(other);
+        }
 
-                    foreach (var hit in colliders)
+        private void DealDamage(Enemy.Enemy enemy)
+        {
+            enemy.Damage(m_FreezeTime);
+        }
+
+        private void GetTargetsInBouncingRadius()
+        {
+            if (m_IsBouncing && m_EnemyTarget.Count <= 0)
+            {
+                Collider2D[] colliders =
+                    Physics2D.OverlapCircleAll(transform.position, m_BouncingRadius, m_EnemyLayerMask);
+
+                foreach (var hit in colliders)
+                {
+                    if (hit.TryGetComponent(out Enemy.Enemy enemy))
                     {
-                        if (hit.GetComponent<Enemy.Enemy>() != null)
-                        {
-                            m_EnemyTarget.Add(hit.transform);
-                        }
+                        m_EnemyTarget.Add(hit.transform);
                     }
                 }
             }
-            
-            StuckInEnemy(other);
         }
         
+        private void DamageEnemiesInRange()
+        {
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, m_HitRadius, m_EnemyLayerMask);
+
+            foreach (var hit in colliders)
+            {
+                if (hit.TryGetComponent(out Enemy.Enemy enemy))
+                {
+                    DealDamage(enemy);
+                }
+            }
+        }
+
         private void StuckInEnemy(Collider2D other)
         {
             if (m_NumberOfPierces > 0 && other.GetComponent<Enemy.Enemy>() != null)

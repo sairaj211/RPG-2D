@@ -157,8 +157,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cd50da358e446438066bc0f90b1844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ReturnSpeed: 25
+  m_MaxReturnSpeed: 200
+  m_MinReturnSpeed: 25
   m_DestroyThreshold: 1
+  m_FreezeTime: 0.8
+  m_MaxDistance: 100
+  m_MinDistace: 25
   m_BounceSpeed: 20
   m_BouncingRadius: 10
   m_EnemyLayerMask:
@@ -192,7 +196,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &1092735223840036203
 BoxCollider2D:
