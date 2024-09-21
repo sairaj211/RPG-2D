@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace Player.Skills
 {
-    public class Clone_SkillController : MonoBehaviour
+    public class CloneSkillController : MonoBehaviour
     {
         [SerializeField] private float m_ColorFadeSpeed;
 
@@ -38,14 +38,14 @@ namespace Player.Skills
             }
         }
 
-        public void SetUpClone(Transform _newTransform, float _cloneDuration, bool _CanAttack)
+        public void SetUpClone(Transform _newTransform, float _cloneDuration, bool _CanAttack, Vector3 _offset = default)
         {
             if (_CanAttack)
             {
                 m_Animator.SetInteger(EntityStatesAnimationHash.ATTACK_NUMBER, Random.Range(1, 4));
             }
 
-            transform.position = _newTransform.position;
+            transform.position = _newTransform.position + _offset;
             m_CloneTimer = _cloneDuration;
             
             FaceClosestTarget();

@@ -37,9 +37,14 @@ public class PlayerGroundedState : PlayerState
             m_PlayerStateMachine.ChangeState(m_Player.m_PlayerCounterAttackState);
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && m_Player.m_Sword)
+        if (Input.GetKeyDown(KeyCode.Mouse2) && m_Player.m_Sword)
         {
-            m_Player.m_Sword.GetComponent<Sword_SkillController>().ReturnSword();
+            m_Player.m_Sword.GetComponent<SwordSkillController>().ReturnSword();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.R) )
+        {
+            m_PlayerStateMachine.ChangeState(m_Player.m_PlayerBlackholeState);
         }
     }
 }

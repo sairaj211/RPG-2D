@@ -1,4 +1,5 @@
 using System.Collections;
+using Player.Skills.Blackhole;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,6 +41,7 @@ namespace Player
         public PlayerCounterAttackState m_PlayerCounterAttackState { get; private set; }
         public PlayerAimSwordState m_PlayerAimSwordState { get; private set; }
         public PlayerCatchSwordState m_PlayerCatchSwordState { get; private set; }
+        public PlayerBlackholeState m_PlayerBlackholeState { get; private set; }
         #endregion
 
         #region PlayerControlVariables
@@ -68,6 +70,7 @@ namespace Player
             m_PlayerCounterAttackState = new PlayerCounterAttackState(this, m_PlayerStateMachine, EntityStatesAnimationHash.COUNTERATTACK);
             m_PlayerAimSwordState = new PlayerAimSwordState(this, m_PlayerStateMachine, EntityStatesAnimationHash.SWORD_AIM);
             m_PlayerCatchSwordState = new PlayerCatchSwordState(this, m_PlayerStateMachine, EntityStatesAnimationHash.SWORD_CATCH);
+            m_PlayerBlackholeState = new PlayerBlackholeState(this, m_PlayerStateMachine, EntityStatesAnimationHash.JUMP);
         }
 
         private void OnDestroy()
@@ -104,7 +107,7 @@ namespace Player
 
         private void DashOnPerformed(InputAction.CallbackContext _obj)
         {
-            if (IsWallDetected())
+            if (IsWallDetected() || m_PlayerStateMachine.m_CurrentState == m_PlayerBlackholeState)
             {
                 return;
             }
@@ -131,6 +134,11 @@ namespace Player
         {
             m_PlayerStateMachine.ChangeState(m_PlayerCatchSwordState);
             Destroy(m_Sword);
+        }
+
+        public void ExitBlackhole()
+        {
+            m_PlayerStateMachine.ChangeState(m_AirState);
         }
     }
 }

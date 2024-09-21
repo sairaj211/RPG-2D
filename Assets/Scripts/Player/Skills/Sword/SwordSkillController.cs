@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Player.Skills.Sword
 {
-    public class Sword_SkillController : MonoBehaviour
+    public class SwordSkillController : MonoBehaviour
     {
         [SerializeField] private float m_MaxReturnSpeed = 12f;
         [SerializeField] private float m_MinReturnSpeed = 12f;
@@ -118,8 +118,6 @@ namespace Player.Skills.Sword
                     float t = Mathf.InverseLerp(m_MaxDistance, m_MinDistace, m_Distance);
                     m_CurrentSpeed = Mathf.Lerp(m_MaxReturnSpeed, m_MinReturnSpeed, t);
                 }
-                
-                Debug.Log("Speed : " + m_CurrentSpeed);
                 
                 transform.position = Vector2.MoveTowards(transform.position, m_Player.transform.position,
                     m_CurrentSpeed * Time.deltaTime);

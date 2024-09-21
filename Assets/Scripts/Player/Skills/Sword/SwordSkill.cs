@@ -16,7 +16,7 @@ namespace Player.Skills
         Spin
     }
     
-    public class Sword_Skill : Skill
+    public class SwordSkill : Skill
     {
         public SwordType m_SwordType;
         
@@ -86,7 +86,7 @@ namespace Player.Skills
         public void CreateSword()
         {
             GameObject m_Sword = Instantiate(m_SwordPrefab, m_Player.transform.position, transform.rotation);
-            Sword_SkillController m_SwordSkillController = m_Sword.GetComponent<Sword_SkillController>();
+            SwordSkillController m_SwordSkillController = m_Sword.GetComponent<SwordSkillController>();
 
             switch (m_SwordType)
             {

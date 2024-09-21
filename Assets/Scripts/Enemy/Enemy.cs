@@ -48,7 +48,7 @@ namespace Enemy
             m_EnemyStateMachine.m_CurrentState.Update();
         }
 
-        protected virtual void FreezeTime(bool _timeFrozen)
+        public virtual void FreezeTime(bool _timeFrozen)
         {
             if (_timeFrozen)
             {

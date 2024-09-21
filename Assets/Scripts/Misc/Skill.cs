@@ -21,7 +21,7 @@ namespace Misc
 
         public virtual bool CanUseSkill()
         {
-            if (m_CooldownTimer < 0f)
+            if (m_CooldownTimer <= 0f)
             {
                 UseSkill();
                 m_CooldownTimer = m_Cooldown;

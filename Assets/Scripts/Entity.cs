@@ -15,6 +15,7 @@ public class Entity : MonoBehaviour
     [SerializeField] protected Transform m_WallCheck;
     [SerializeField] protected float m_WallCheckDistance;
     [SerializeField] protected LayerMask m_GroundLayerMask;
+    public SpriteRenderer m_SpriteRenderer { get; private set; }
 
     [Header("Knock-back Info")] 
     [SerializeField] protected Vector2 m_KnockbackDirection;
@@ -42,6 +43,7 @@ public class Entity : MonoBehaviour
     protected virtual void Start()
     {
         m_EntityFX = GetComponent<EntityFX>();
+        m_SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
     
     protected virtual void Update()
@@ -53,6 +55,18 @@ public class Entity : MonoBehaviour
     {
         m_EntityFX.StartCoroutine(m_EntityFX.FlashFX());
         StartCoroutine(HitKnockback());
+    }
+
+    public void MakeTransparent(bool _isTransparent)
+    {
+        if (_isTransparent)
+        {
+            m_SpriteRenderer.color = Color.clear;
+        }
+        else
+        {
+            m_SpriteRenderer.color = Color.white;
+        }
     }
     
     public virtual void Damage(float _freezeTime){}
