@@ -10,7 +10,6 @@ namespace Player.Skills
 
         [SerializeField] private Transform m_AttackCheck;
         [SerializeField] private float m_AttackCheckRadius = 0.8f;
-        [SerializeField] private float m_TargetCheckRadius = 25f;
         private SpriteRenderer m_SpriteRenderer;
         private Animator m_Animator;
         private float m_CloneTimer;
@@ -38,7 +37,7 @@ namespace Player.Skills
             }
         }
 
-        public void SetUpClone(Transform _newTransform, float _cloneDuration, bool _CanAttack, Vector3 _offset = default)
+        public void SetUpClone(Transform _newTransform, float _cloneDuration, bool _CanAttack, Transform _closestEnemy, Vector3 _offset = default)
         {
             if (_CanAttack)
             {
@@ -48,26 +47,12 @@ namespace Player.Skills
             transform.position = _newTransform.position + _offset;
             m_CloneTimer = _cloneDuration;
             
+            m_ClosestEnemy = _closestEnemy;
             FaceClosestTarget();
         }
 
         private void FaceClosestTarget()
         {
-            Collider2D[] m_Collider2D = Physics2D.OverlapCircleAll(transform.position, m_TargetCheckRadius);
-
-            float closestDistance = float.MaxValue;
-
-            foreach (Collider2D hit in m_Collider2D)
-            {
-                float distanceToEnemy = Vector2.Distance(transform.position, hit.transform.position);
-                {
-                    if (distanceToEnemy <= closestDistance)
-                    {
-                        m_ClosestEnemy = hit.transform;
-                    }
-                }
-            }
-
             if (m_ClosestEnemy != null)
             {
                 /*//Vector2 directionToPlayer = (transform.position - m_ClosestEnemy.transform.position).normalized;

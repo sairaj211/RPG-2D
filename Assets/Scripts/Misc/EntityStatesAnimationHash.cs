@@ -26,4 +26,8 @@ public class EntityStatesAnimationHash
 
     //Sword
     public static readonly int SWORD_ROTATE = Animator.StringToHash("SwordRotate");
+    
+    //Crystal
+    public static readonly int CRYSTAL_IDLE = Animator.StringToHash("CrystalIdle");
+    public static readonly int CRYSTAL_EXPLODE = Animator.StringToHash("CrystalExplode");
 }

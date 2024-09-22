@@ -92,6 +92,11 @@ namespace Player
 
             m_PlayerStateMachine.m_CurrentState.Update();
             m_DashTimer -= Time.deltaTime;
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                m_SkillManager.m_CrystalSkill.UseSkill();
+            }
         }
 
         public IEnumerator BusyFor(float _seconds)

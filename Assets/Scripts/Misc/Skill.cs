@@ -35,5 +35,30 @@ namespace Misc
         {
             // do some skill specific things
         }
+
+        protected virtual Transform FindClosetEnemy(Transform _transform, float _radius)
+        {
+            Collider2D[] m_Collider2D = Physics2D.OverlapCircleAll(_transform.position, _radius);
+
+            float closestDistance = float.MaxValue;
+            Transform closestEnemy = null;
+            
+            foreach (Collider2D hit in m_Collider2D)
+            {
+                if (hit.TryGetComponent(out Enemy.Enemy m_Enemy))
+                {
+                    float distanceToEnemy = Vector2.Distance(_transform.position, hit.transform.position);
+                    {
+                        if (distanceToEnemy <= closestDistance)
+                        {
+                            closestEnemy = hit.transform;
+                            closestDistance = distanceToEnemy;
+                        }
+                    }
+                }
+            }
+
+            return closestEnemy;
+        }
     }
 }
