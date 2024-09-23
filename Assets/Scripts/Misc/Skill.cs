@@ -27,6 +27,8 @@ namespace Misc
                 m_CooldownTimer = m_Cooldown;
                 return true;
             }
+            
+            Debug.Log("Skill on Cooldown");
 
             return false;
         }

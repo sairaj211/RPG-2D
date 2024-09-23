@@ -18,6 +18,8 @@ namespace Player.Skills.Crystal
         public Transform m_ClosestTarget;
         public float speed = 5f; // Speed of the missile
         public float arcHeight = 2f; // Height of the arc
+        
+        
         private void Awake()
         {
             m_Animator = GetComponent<Animator>();

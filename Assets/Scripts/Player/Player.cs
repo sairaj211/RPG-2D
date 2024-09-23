@@ -95,7 +95,7 @@ namespace Player
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                m_SkillManager.m_CrystalSkill.UseSkill();
+                m_SkillManager.m_CrystalSkill.CanUseSkill();
             }
         }
 
