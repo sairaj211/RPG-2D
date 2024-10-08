@@ -106,7 +106,7 @@ namespace Player.Skills.Blackhole
 
                     float offset = Random.Range(0, 100) > 50 ? 1f : -1f;
 
-                    SkillManager.Instance.m_CloneSkill.CreateClone(m_Targets[randomIndex], new Vector3(offset, 0));
+                    SkillManager.Instance.m_CloneSKill.CreateClone(m_Targets[randomIndex], new Vector3(offset, 0));
                     m_NumberOfAttacks--;
 
                     if (m_NumberOfAttacks <= 0)

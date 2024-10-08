@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 3854687931966081337}
   - component: {fileID: 1842850595204794438}
   - component: {fileID: 8980662771970747545}
-  - component: {fileID: 8478417122998010919}
+  - component: {fileID: 2796013087746126675}
   m_Layer: 0
   m_Name: Clone
   m_TagString: Untagged
@@ -143,7 +143,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8478417122998010919
+--- !u!114 &2796013087746126675
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,5 +157,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ColorFadeSpeed: 0
   m_AttackCheck: {fileID: 7235935236731735901}
-  m_AttackCheckRadius: 0.8
+  m_AttackCheckRadius: 1
+  m_EnemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
   m_Speed: 20

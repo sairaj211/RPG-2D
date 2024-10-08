@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerCounterAttackState : PlayerState
 {
+    private bool m_CanCreateClone;
+    
     public PlayerCounterAttackState(Player.Player _player, PlayerStateMachine _playerStateMachine, int _animHash) 
         : base(_player, _playerStateMachine, _animHash)
     {
@@ -11,6 +13,7 @@ public class PlayerCounterAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        m_CanCreateClone = true;
         m_StateTimer = m_Player.m_CounterAttackDuration;
         m_Player.GetAnimator().SetBool(EntityStatesAnimationHash.SUCCESSFULCOUNTERATTACK,false);
     }
@@ -31,6 +34,12 @@ public class PlayerCounterAttackState : PlayerState
                 {
                     m_StateTimer = 10f; // any value bigger than counterAttackDuration
                     m_Player.GetAnimator().SetBool(EntityStatesAnimationHash.SUCCESSFULCOUNTERATTACK,true);
+
+                    if (m_CanCreateClone)
+                    {
+                        m_CanCreateClone = false;
+                        m_Player.m_SkillManager.m_CloneSKill.CreateCloneOnCounterAttack(hit.transform);
+                    }
                 }
             }
         }

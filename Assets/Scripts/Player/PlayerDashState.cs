@@ -11,7 +11,7 @@ public class PlayerDashState : PlayerState
     {
         base.Enter();
         
-        m_Player.m_SkillManager.m_CloneSkill.CreateClone(m_Player.transform);
+        m_Player.m_SkillManager.m_CloneSKill.CreateCloneOnDashStart();
         
         m_StateTimer = m_Player.m_DashDuration;
     }
@@ -38,7 +38,8 @@ public class PlayerDashState : PlayerState
     {
         base.Exit();
         
-     //   m_Player.SetDashVelocity(false);
+        m_Player.m_SkillManager.m_CloneSKill.CreateCloneOnDashEnd();
+        
         m_Player.SetVelocity(0f, m_Rigidbody2D.velocityY);
     }
 }

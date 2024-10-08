@@ -9,12 +9,16 @@ namespace Player.Skills
         [SerializeField] private float m_ColorFadeSpeed;
 
         [SerializeField] private Transform m_AttackCheck;
-        [SerializeField] private float m_AttackCheckRadius = 0.8f;
+        [SerializeField] private float m_AttackCheckRadius = 1f;
+        [SerializeField] private LayerMask m_EnemyLayerMask;
         private SpriteRenderer m_SpriteRenderer;
         private Animator m_Animator;
         private float m_CloneTimer;
 
         private Transform m_ClosestEnemy;
+        private bool m_CanDuplicateClone;
+        private int m_FacingDirection = 1;
+        private int m_PercentageChance;
 
         // Angular speed in radians per sec.
         public float m_Speed = 20.0f;
@@ -30,14 +34,14 @@ namespace Player.Skills
             float alpha = Mathf.Lerp(m_SpriteRenderer.color.a, 0.0f, Time.deltaTime);
             m_SpriteRenderer.color = new Color(1, 1, 1, alpha);
             
-            if (m_CloneTimer < 0f)
+            if (m_CloneTimer < -2f)
             {
               //  m_SpriteRenderer.color = new Color(1, 1, 1, m_SpriteRenderer.color.a - (Time.deltaTime - m_ColorFadeSpeed));
                 Destroy(gameObject);
             }
         }
 
-        public void SetUpClone(Transform _newTransform, float _cloneDuration, bool _CanAttack, Transform _closestEnemy, Vector3 _offset = default)
+        public void SetUpClone(Transform _newTransform, float _cloneDuration, bool _CanAttack, bool _duplicate, int _chance, Transform _closestEnemy, Vector3 _offset = default)
         {
             if (_CanAttack)
             {
@@ -46,8 +50,9 @@ namespace Player.Skills
 
             transform.position = _newTransform.position + _offset;
             m_CloneTimer = _cloneDuration;
-            
+            m_CanDuplicateClone = _duplicate;
             m_ClosestEnemy = _closestEnemy;
+            m_PercentageChance = _chance;
             FaceClosestTarget();
         }
 
@@ -71,6 +76,7 @@ namespace Player.Skills
 
                 if (transform.position.x > m_ClosestEnemy.position.x)
                 {
+                    m_FacingDirection = -1;
                     transform.Rotate(0,180f,0);
                 }
             }
@@ -79,18 +85,28 @@ namespace Player.Skills
         
         private void AnimationTrigger()
         {
-       //     m_CloneTimer = 0.5f;
+            m_CloneTimer = -.1f;
         }
 
         private void AttackTrigger()
         {
-            Collider2D[] m_Collider2D = Physics2D.OverlapCircleAll(m_AttackCheck.position, m_AttackCheckRadius);
+            Collider2D[] m_Collider2D = Physics2D.OverlapCircleAll(m_AttackCheck.position, m_AttackCheckRadius, m_EnemyLayerMask);
 
             foreach (Collider2D hit in m_Collider2D)
             {
                 if (hit.TryGetComponent<Enemy.Enemy>(out var enemy))
                 {
                     enemy.Damage();
+
+                    if (m_CanDuplicateClone)
+                    {
+                        int m_Chance = Random.Range(0, 100);
+                        Debug.Log(m_Chance.ToString());
+                        if (m_Chance < m_PercentageChance)
+                        {
+                            SkillManager.Instance.m_CloneSKill.CreateClone(hit.transform, new Vector3(0.5f * m_FacingDirection, 0f));
+                        }
+                    }
                 }
             }
         }

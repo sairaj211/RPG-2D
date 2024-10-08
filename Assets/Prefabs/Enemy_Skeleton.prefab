@@ -163,7 +163,7 @@ MonoBehaviour:
   m_GroundLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  m_KnockbackDirection: {x: 5, y: 7}
+  m_KnockbackDirection: {x: 2, y: 2}
   m_KnockbackDuration: 0.4
   m_Animator: {fileID: 5785119401942831064}
   m_Rigidbody2D: {fileID: 8953778098186812456}

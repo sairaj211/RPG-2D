@@ -519,6 +519,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Skeleton (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3313524003599931119, guid: 503610322dac55e45af27fd07a6c6917, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3315,6 +3319,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Skeleton (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3313524003599931119, guid: 503610322dac55e45af27fd07a6c6917, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3830,7 +3838,7 @@ GameObject:
   - component: {fileID: 2071129539}
   - component: {fileID: 2071129538}
   - component: {fileID: 2071129537}
-  - component: {fileID: 2071129540}
+  - component: {fileID: 2071129544}
   - component: {fileID: 2071129541}
   - component: {fileID: 2071129542}
   - component: {fileID: 2071129543}
@@ -3881,23 +3889,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2071129540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2071129536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 194fb39c0965426d85dd7a7b0f96e753, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Cooldown: 0
-  m_ClonePrefab: {fileID: 6530630914593877696, guid: 7ab9475cfb908ce40b475e1fa47834fb, type: 3}
-  m_CloneDuration: 1.5
-  m_CanAttack: 1
-  m_TargetCheckRadius: 25
 --- !u!114 &2071129541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3968,8 +3959,32 @@ MonoBehaviour:
   m_IsMultiStack: 1
   m_NumberOfStacks: 3
   m_MultiStackCooldown: 4
-  m_CrystalStack: []
   m_MultiCrystalUseTimeWindow: 2.5
+  m_CrystalStack: []
+--- !u!114 &2071129544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071129536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf8a5c24b0d4419800ef914170a5dbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Cooldown: 0
+  m_ClonePrefab: {fileID: 6530630914593877696, guid: 7ab9475cfb908ce40b475e1fa47834fb, type: 3}
+  m_CloneDuration: 1.5
+  m_CanAttack: 1
+  m_TargetCheckRadius: 25
+  m_CreateCloneOnDashStart: 0
+  m_CreateCloneOnDashEnd: 0
+  m_CreateCloneOnCounterAttack: 1
+  m_DelayTime: 0
+  m_CloneSpawnOffset: 1
+  m_CanDuplicateClone: 1
+  m_CloneDuplicateChances: 35
 --- !u!1001 &676548557655008405
 PrefabInstance:
   m_ObjectHideFlags: 0
