@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 8572991576475161896}
   - component: {fileID: 369225644465329042}
   - component: {fileID: 5734478907602895153}
+  - component: {fileID: 5768472328625725254}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -220,6 +221,7 @@ MonoBehaviour:
   m_Animator: {fileID: 2960318544724566114}
   m_Rigidbody2D: {fileID: 369225644465329042}
   m_EntityFX: {fileID: 0}
+  m_CharacterStats: {fileID: 0}
   m_MoveSpeed: 8
   m_JumpVelocity: 15
   m_FallSpeed: 0.8
@@ -311,6 +313,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HitMaterial: {fileID: 2100000, guid: 60c3f90e90d7b2e4d922f0ad865e40c1, type: 2}
   m_FlashTime: 0.2
+--- !u!114 &5768472328625725254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6098425847294146901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dc70b10775740358ec0b3fed3b54bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxHealth:
+    m_BaseValue: 0
+    m_Modifiers: 
+  m_Damage:
+    m_BaseValue: 0
+    m_Modifiers: 
 --- !u!1 &7276197411532267059
 GameObject:
   m_ObjectHideFlags: 0

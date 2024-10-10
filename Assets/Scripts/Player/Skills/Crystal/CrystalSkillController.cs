@@ -118,7 +118,7 @@ namespace Player.Skills.Crystal
             {
                 if (hit.TryGetComponent<Enemy.Enemy>(out var enemy))
                 {
-                    enemy.Damage();
+                    enemy.DamageEffect();
                 }
             }
         }

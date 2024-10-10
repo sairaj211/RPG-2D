@@ -28,6 +28,7 @@ public class Entity : MonoBehaviour
     [SerializeField] private Animator m_Animator;
     [SerializeField] private Rigidbody2D m_Rigidbody2D;
     [HideInInspector] public EntityFX m_EntityFX;
+    [HideInInspector] public CharacterStats m_CharacterStats;
     #endregion
 
     private Vector2 m_frameVelocity;
@@ -44,6 +45,7 @@ public class Entity : MonoBehaviour
     {
         m_EntityFX = GetComponent<EntityFX>();
         m_SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        m_CharacterStats = GetComponent<CharacterStats>();
     }
     
     protected virtual void Update()
@@ -51,7 +53,7 @@ public class Entity : MonoBehaviour
       //  ApplyMovement();
     }
 
-    public virtual void Damage()
+    public virtual void DamageEffect()
     {
         m_EntityFX.StartCoroutine(m_EntityFX.FlashFX());
         StartCoroutine(HitKnockback());
@@ -69,7 +71,7 @@ public class Entity : MonoBehaviour
         }
     }
     
-    public virtual void Damage(float _freezeTime){}
+    public virtual void DamageEffect(float _freezeTime){}
 
     private IEnumerator HitKnockback()
     {

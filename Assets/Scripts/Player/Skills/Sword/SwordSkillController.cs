@@ -231,7 +231,7 @@ namespace Player.Skills.Sword
 
         private void DealDamage(Enemy.Enemy enemy)
         {
-            enemy.Damage(m_FreezeTime);
+            enemy.DamageEffect(m_FreezeTime);
         }
 
         private void GetTargetsInBouncingRadius()

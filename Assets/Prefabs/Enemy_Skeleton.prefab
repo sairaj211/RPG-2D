@@ -8,6 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -193170835206716289, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
+      propertyPath: m_Damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -193170835206716289, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
+      propertyPath: m_MaxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -193170835206716289, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
+      propertyPath: m_Damage.m_BaseValue
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -193170835206716289, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
+      propertyPath: m_MaxHealth.m_BaseValue
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 369225644465329042, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_GravityScale
       value: 10
@@ -116,6 +132,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.935
       objectReference: {fileID: 0}
+    - target: {fileID: 8179896835673908793, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
+      propertyPath: m_Damage.m_BaseValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179896835673908793, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
+      propertyPath: m_MaxHealth.m_BaseValue
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 8572991576475161896, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_Size.y
       value: 1.5984807
@@ -168,6 +192,7 @@ MonoBehaviour:
   m_Animator: {fileID: 5785119401942831064}
   m_Rigidbody2D: {fileID: 8953778098186812456}
   m_EntityFX: {fileID: 0}
+  m_CharacterStats: {fileID: 0}
   m_MoveSpeed: 2
   m_IdleTime: 2
   m_FacingThreshold: 0.5

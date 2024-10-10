@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Player;
+using UnityEngine;
 
 namespace Enemy.EnemySkeleton
 {
@@ -19,7 +20,8 @@ namespace Enemy.EnemySkeleton
             {
                 if (hit.TryGetComponent<Player.Player>(out var player))
                 {
-                    player.Damage();
+                    PlayerStats _targetStats = player.GetComponent<PlayerStats>();
+                    m_Enemy.m_CharacterStats.CalculateAndDoDamage(_targetStats);
                 }
             }
         }

@@ -96,7 +96,7 @@ namespace Player.Skills
             {
                 if (hit.TryGetComponent<Enemy.Enemy>(out var enemy))
                 {
-                    enemy.Damage();
+                    enemy.DamageEffect();
                     if (m_CanDuplicateClone)
                     {
                         int m_Chance = Random.Range(0, 100);

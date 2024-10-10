@@ -110,11 +110,11 @@ namespace Enemy
             Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + m_AttackDistance * m_FacingDireciton, transform.position.y));
         }
 
-        public override void Damage(float _freezeTime)
+        public override void DamageEffect(float _freezeTime)
         {
             Debug.Log("DAMAGE TAKEN");
             
-            base.Damage();
+            base.DamageEffect();
             
             StartCoroutine(FreezeTimeFor(_freezeTime));
         }
