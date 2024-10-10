@@ -97,18 +97,22 @@ namespace Player.Skills
                 if (hit.TryGetComponent<Enemy.Enemy>(out var enemy))
                 {
                     enemy.Damage();
-
                     if (m_CanDuplicateClone)
                     {
                         int m_Chance = Random.Range(0, 100);
-                        Debug.Log(m_Chance.ToString());
                         if (m_Chance < m_PercentageChance)
                         {
-                            SkillManager.Instance.m_CloneSKill.CreateClone(hit.transform, new Vector3(0.5f * m_FacingDirection, 0f));
+                            SkillManager.Instance.m_CloneSKill.CreateClone(hit.transform, new Vector3(0.25f * m_FacingDirection, 0f));
                         }
                     }
                 }
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(m_AttackCheck.position, m_AttackCheckRadius);
         }
     }
 }

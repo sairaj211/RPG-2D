@@ -8,7 +8,8 @@ namespace Player.Skills.Blackhole
     {
         [Header("Blackhole Info")]
         [SerializeField] private GameObject m_BlackholePrefab;
-        [SerializeField] private float m_MaxSize;
+
+        public float m_MaxSize;
         [SerializeField] private float m_GrowSpeed;   
         [SerializeField] private int m_NumberOfAttacks;
         [SerializeField] private float m_CloneAttackCooldown;

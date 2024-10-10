@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Player.Skills.Crystal
 {
@@ -7,6 +8,7 @@ namespace Player.Skills.Crystal
     {
         [SerializeField] private bool m_CanGrow;
         [SerializeField] private float m_GrowSpeed;
+        [SerializeField] private LayerMask m_EnemyLayerMask;
         
         private float m_CrystalExistTimer;
         private bool m_CanExplode;
@@ -62,6 +64,17 @@ namespace Player.Skills.Crystal
             {
                 transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(3f, 3f),
                     m_GrowSpeed * Time.deltaTime);
+            }
+        }
+
+        public void ChooseRandomEnemy()
+        {
+            Collider2D[] colliders =
+                Physics2D.OverlapCircleAll(transform.position, SkillManager.Instance.m_BlackholeSkill.m_MaxSize/2f, m_EnemyLayerMask);
+
+            if (colliders.Length > 0)
+            {
+                m_ClosestTarget = colliders[Random.Range(0, colliders.Length)].transform;
             }
         }
 

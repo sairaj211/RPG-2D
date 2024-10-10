@@ -126,6 +126,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CanGrow: 0
   m_GrowSpeed: 5
+  m_EnemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_ClosestTarget: {fileID: 0}
+  speed: 5
+  arcHeight: 2
 --- !u!58 &8498516731430405087
 CircleCollider2D:
   m_ObjectHideFlags: 0

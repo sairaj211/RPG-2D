@@ -33,6 +33,11 @@ namespace Player.Skills.Blackhole
             m_NumberOfAttacks = _numberOfAttacks;
             m_CloneAttackCooldown = _cloneAttackCooldown;
             m_BlackholeTimer = _duration;
+
+             if (SkillManager.Instance.m_CloneSKill.m_CanCreateCrystalInstead)
+             {
+                 PlayerManager.Instance.m_Player.MakeTransparent(false);
+             }
         }
         
         private void Update()
@@ -70,7 +75,8 @@ namespace Player.Skills.Blackhole
         {
             if(m_Targets.Count <= 0) return;
             
-            PlayerManager.Instance.m_Player.MakeTransparent(true);
+            PlayerManager.Instance.m_Player.MakeTransparent(!SkillManager.Instance.m_CloneSKill.m_CanCreateCrystalInstead);
+
             m_CreateClonesAndAttack = true;
         }
 
@@ -106,7 +112,16 @@ namespace Player.Skills.Blackhole
 
                     float offset = Random.Range(0, 100) > 50 ? 1f : -1f;
 
-                    SkillManager.Instance.m_CloneSKill.CreateClone(m_Targets[randomIndex], new Vector3(offset, 0));
+                    if (SkillManager.Instance.m_CloneSKill.m_CanCreateCrystalInstead)
+                    {
+                        SkillManager.Instance.m_CrystalSkill.CreateCrystal();
+                        SkillManager.Instance.m_CrystalSkill.CurrentCrystalChooseRandomTarget();
+                    }
+                    else
+                    {
+                        SkillManager.Instance.m_CloneSKill.CreateClone(m_Targets[randomIndex], new Vector3(offset, 0));
+                    }
+
                     m_NumberOfAttacks--;
 
                     if (m_NumberOfAttacks <= 0)

@@ -48,10 +48,7 @@ namespace Player.Skills.Crystal
             
             if (m_CurrentCrystal == null)
             {
-                m_CurrentCrystal = Instantiate(m_CrystalPrefab, m_Player.transform.position, Quaternion.identity);
-                CrystalSkillController controller = m_CurrentCrystal.GetComponent<CrystalSkillController>();
-                controller.SetupCrystal(m_CrystalDuration, m_CanExplode, m_CanMoveTowardsEnemy, m_MoveSpeed,
-                    FindClosetEnemy(m_CurrentCrystal.transform, m_TargetCheckRadius));
+                CreateCrystal();
             }
             // else
             // {
@@ -60,7 +57,19 @@ namespace Player.Skills.Crystal
             //     controller.CrystalDestroyLogic();
             // }
         }
-        
+
+        public void CreateCrystal()
+        {
+
+            m_CurrentCrystal = Instantiate(m_CrystalPrefab, m_Player.transform.position, Quaternion.identity);
+            CrystalSkillController controller = m_CurrentCrystal.GetComponent<CrystalSkillController>();
+            controller.SetupCrystal(m_CrystalDuration, m_CanExplode, m_CanMoveTowardsEnemy, m_MoveSpeed,
+                FindClosetEnemy(m_CurrentCrystal.transform, m_TargetCheckRadius));
+        }
+
+        public void CurrentCrystalChooseRandomTarget() =>
+            m_CurrentCrystal.GetComponent<CrystalSkillController>().ChooseRandomEnemy();
+
 
         private bool UseMultiCrystal()
         {
