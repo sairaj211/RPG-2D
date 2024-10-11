@@ -17,7 +17,7 @@ namespace Enemy.EnemySkeleton
         {
             base.Update();
             m_AttackTimer += Time.deltaTime;
-            if (m_EnemySkeleton.IsPlayerDetected())
+            if (m_EnemySkeleton.IsPlayerDetected() && m_EnemySkeleton.m_IsPlayerAlive)
             {
                 m_StateTimer = m_EnemySkeleton.m_BattleTime;
                 if (m_EnemySkeleton.IsPlayerDetected().distance < m_EnemySkeleton.m_AttackDistance && CanAttack())

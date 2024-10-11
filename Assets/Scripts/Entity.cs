@@ -7,6 +7,8 @@ using Input = UnityEngine.Windows.Input;
 
 public class Entity : MonoBehaviour
 {
+    protected Action OnDeathEvent;
+    
     [Header("Collision Info")] 
     public Transform m_AttackCheck;
     public float m_AttackCheckRadius;
@@ -26,9 +28,11 @@ public class Entity : MonoBehaviour
     #region COMPONENTS
     [Header("References")]
     [SerializeField] private Animator m_Animator;
-    [SerializeField] private Rigidbody2D m_Rigidbody2D;
+    [SerializeField] protected Rigidbody2D m_Rigidbody2D;
+    protected CapsuleCollider2D m_CapsuleCollider2D;
     [HideInInspector] public EntityFX m_EntityFX;
     [HideInInspector] public CharacterStats m_CharacterStats;
+    
     #endregion
 
     private Vector2 m_frameVelocity;
@@ -46,6 +50,7 @@ public class Entity : MonoBehaviour
         m_EntityFX = GetComponent<EntityFX>();
         m_SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
         m_CharacterStats = GetComponent<CharacterStats>();
+        m_CapsuleCollider2D = GetComponent<CapsuleCollider2D>();
     }
     
     protected virtual void Update()
@@ -58,7 +63,7 @@ public class Entity : MonoBehaviour
         m_EntityFX.StartCoroutine(m_EntityFX.FlashFX());
         StartCoroutine(HitKnockback());
     }
-
+    
     public void MakeTransparent(bool _isTransparent)
     {
         if (_isTransparent)
@@ -192,4 +197,15 @@ public class Entity : MonoBehaviour
         }
     }
     #endregion
+
+    public void Death()
+    {
+        OnDeathEvent?.Invoke();
+    }
+
+    public void DisableCollider()
+    {
+        m_CapsuleCollider2D.enabled = false;
+    }
+    
 }

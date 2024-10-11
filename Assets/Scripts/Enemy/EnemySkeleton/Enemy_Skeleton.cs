@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
@@ -8,6 +9,8 @@ namespace Enemy.EnemySkeleton
     public class Enemy_Skeleton : Enemy
     {
 
+        [SerializeField] public float m_DestroyTimer;
+        
         #region States
 
         public SkeletonIdleState m_IdleState { get; private set; }
@@ -15,10 +18,10 @@ namespace Enemy.EnemySkeleton
         public SkeletonBattleState m_BattleState { get; private set; }
         public SkeletonAttackState m_AttackState { get; private set; }
         public SkeletonStunnedState m_StunnedState { get; private set; }
-        
+        public SkeletonDeadState m_DeadState { get; private set; }
 
         #endregion
-        
+
         protected override void Awake()
         {
             base.Awake();
@@ -27,7 +30,11 @@ namespace Enemy.EnemySkeleton
             m_BattleState = new SkeletonBattleState(this, m_EnemyStateMachine, EntityStatesAnimationHash.MOVE, this);
             m_AttackState = new SkeletonAttackState(this, m_EnemyStateMachine, EntityStatesAnimationHash.ATTACK, this);
             m_StunnedState = new SkeletonStunnedState(this, m_EnemyStateMachine, EntityStatesAnimationHash.STUNNED, this);
+            m_DeadState = new SkeletonDeadState(this, m_EnemyStateMachine, EntityStatesAnimationHash.SKELETON_DEATH, this);
+            
+            OnEnemyDeathEvent += OnEnemyDeathEventCallback;
         }
+
 
         protected override void Start()
         {
@@ -55,5 +62,21 @@ namespace Enemy.EnemySkeleton
 
             return false;
         }
+
+        private void OnDestroy()
+        {
+            OnEnemyDeathEvent -= OnEnemyDeathEventCallback;
+        }
+
+        private void OnEnemyDeathEventCallback()
+        {
+            m_EnemyStateMachine.ChangeState(m_DeadState);
+        }
+
+        public void DestroyGameObject()
+        {
+            Destroy(gameObject);
+        }
+
     }
 }

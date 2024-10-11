@@ -6,6 +6,7 @@ public class EntityStatesAnimationHash
     public static readonly int MOVE = Animator.StringToHash("Move");
     public static readonly int JUMP = Animator.StringToHash("Jump");
     public static readonly int DASH = Animator.StringToHash("Dash");
+    public static readonly int DIE = Animator.StringToHash("Die");
     public static readonly int WALLSLIDE = Animator.StringToHash("WallSlide");
     public static readonly int JUMP_VELOCITY = Animator.StringToHash("yVelocity");
     public static readonly int ATTACK = Animator.StringToHash("Attack");
@@ -23,6 +24,7 @@ public class EntityStatesAnimationHash
     public static readonly int STUNNED = Animator.StringToHash("Stunned");
     public static readonly int COUNTERATTACK = Animator.StringToHash("CounterAttack");
     public static readonly int SUCCESSFULCOUNTERATTACK = Animator.StringToHash("SuccessfulCounterAttack");
+    public static readonly int SKELETON_DEATH = Animator.StringToHash("SkellyDie");
 
     //Sword
     public static readonly int SWORD_ROTATE = Animator.StringToHash("SwordRotate");

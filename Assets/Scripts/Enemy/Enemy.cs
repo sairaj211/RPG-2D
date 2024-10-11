@@ -6,6 +6,8 @@ namespace Enemy
 {
     public class Enemy : Entity
     {
+        protected Action OnEnemyDeathEvent;
+        
         [Header("Settings")] 
         public float m_MoveSpeed;
         public float m_IdleTime;
@@ -25,6 +27,9 @@ namespace Enemy
         public float m_AttackDistance;
         public float m_AttackCooldown;
         [HideInInspector] public float m_PreviousAttackTime;
+        [HideInInspector] public bool m_IsPlayerAlive;
+
+        public int m_LastAnimationHash;
         
         public EnemyStateMachine m_EnemyStateMachine { get; private set; }
         
@@ -35,10 +40,21 @@ namespace Enemy
             m_DefaultMoveSpeed = m_MoveSpeed;
         }
 
+        private void OnEnable()
+        {
+            OnDeathEvent += OnDeathEventCallback;
+        }
+
+        private void OnDisable()
+        {
+            OnDeathEvent -= OnDeathEventCallback;
+        }
+
         protected override void Start()
         {
             base.Start();
             base.SetSpeed(m_MoveSpeed);
+            m_IsPlayerAlive = PlayerManager.Instance.GetPlayerAlive();
         }
         
         protected override void Update()
@@ -112,11 +128,21 @@ namespace Enemy
 
         public override void DamageEffect(float _freezeTime)
         {
-            Debug.Log("DAMAGE TAKEN");
+           // Debug.Log("DAMAGE TAKEN");
             
             base.DamageEffect();
             
             StartCoroutine(FreezeTimeFor(_freezeTime));
+        }
+        
+        private void OnDeathEventCallback()
+        {
+            OnEnemyDeathEvent?.Invoke();
+        }
+
+        public virtual void AssignLastAnimationName(int _hash)
+        {
+            m_LastAnimationHash = _hash;
         }
     }
 }

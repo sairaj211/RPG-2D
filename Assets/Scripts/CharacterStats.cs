@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+
     public Stat m_Strength;
     public Stat m_MaxHealth;
     public Stat m_Damage;
@@ -29,6 +30,7 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void TakeDamage(int _damage)
     {
+        Debug.Log("take damage");
         m_CurrentHealth -= _damage;
 
         if (m_CurrentHealth <= 0)
@@ -42,7 +44,7 @@ public class CharacterStats : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
+        m_Entity.Death();
     }
 
     private void DamageEffect()

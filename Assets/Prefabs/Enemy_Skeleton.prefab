@@ -134,11 +134,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8179896835673908793, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_Damage.m_BaseValue
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8179896835673908793, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_MaxHealth.m_BaseValue
-      value: 50
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8572991576475161896, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_Size.y
@@ -207,6 +207,8 @@ MonoBehaviour:
   m_AttackDistance: 1.5
   m_AttackCooldown: 0.5
   m_PreviousAttackTime: 0
+  m_IsPlayerAlive: 0
+  m_DestroyTimer: 0.5
 --- !u!4 &4676106422916325885 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4159403550844341831, guid: 134dff95b64c41a408892e5b4d211637, type: 3}

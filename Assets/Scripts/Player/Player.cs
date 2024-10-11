@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using Player.Skills.Blackhole;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +9,8 @@ namespace Player
 {
     public class Player : Entity
     {
+        public static Action OnPlayerDeathEvent;
+        
         [Header("Settings")] 
         public float m_MoveSpeed;
         public float m_JumpVelocity;
@@ -27,7 +31,7 @@ namespace Player
         
         public GameObject m_Sword { get; private set; }
 
-    
+
         #region STATES
         public PlayerStateMachine m_PlayerStateMachine { get; private set; }
         public PlayerIdleState m_IdleState { get; private set; }
@@ -42,6 +46,7 @@ namespace Player
         public PlayerAimSwordState m_PlayerAimSwordState { get; private set; }
         public PlayerCatchSwordState m_PlayerCatchSwordState { get; private set; }
         public PlayerBlackholeState m_PlayerBlackholeState { get; private set; }
+        public PlayerDeadState m_PlayerDeadState { get; private set; }
         #endregion
 
         #region PlayerControlVariables
@@ -50,7 +55,17 @@ namespace Player
         #endregion
 
         public SkillManager m_SkillManager { get; private set; }
-        
+
+        private void OnEnable()
+        {
+            OnDeathEvent += OnDeathEventCallback;
+        }
+
+        private void OnDisable()
+        {
+            OnDeathEvent -= OnDeathEventCallback;
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -71,6 +86,7 @@ namespace Player
             m_PlayerAimSwordState = new PlayerAimSwordState(this, m_PlayerStateMachine, EntityStatesAnimationHash.SWORD_AIM);
             m_PlayerCatchSwordState = new PlayerCatchSwordState(this, m_PlayerStateMachine, EntityStatesAnimationHash.SWORD_CATCH);
             m_PlayerBlackholeState = new PlayerBlackholeState(this, m_PlayerStateMachine, EntityStatesAnimationHash.JUMP);
+            m_PlayerDeadState = new PlayerDeadState(this, m_PlayerStateMachine, EntityStatesAnimationHash.DIE);
         }
 
         private void OnDestroy()
@@ -85,7 +101,13 @@ namespace Player
             m_PlayerStateMachine.Initialize(m_IdleState);
             m_SkillManager = SkillManager.Instance;
         }
-
+        
+        private void OnDeathEventCallback()
+        {
+            m_PlayerStateMachine.ChangeState(m_PlayerDeadState);
+            OnPlayerDeathEvent?.Invoke();
+        }
+        
         protected override void Update()
         {
             base.Update();
@@ -145,5 +167,7 @@ namespace Player
         {
             m_PlayerStateMachine.ChangeState(m_AirState);
         }
+        
+        
     }
 }

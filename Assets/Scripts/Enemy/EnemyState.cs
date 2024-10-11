@@ -12,6 +12,7 @@ namespace Enemy
         private int m_AnimationHash;
         protected float m_StateTimer;
         protected bool m_TriggerCalled;
+        protected AnimatorStateInfo m_AnimatorStateInfo;
 
         public EnemyState(Enemy _enemyBase, EnemyStateMachine _enemyStateMachine, int _animHash)
         {
@@ -24,9 +25,9 @@ namespace Enemy
         {
             m_Animator = m_EnemyBase.GetAnimator();
             m_Animator.SetBool(m_AnimationHash, true);
+            m_AnimatorStateInfo = GetAnimatorStateInfo();
             m_Rigidbody2D = m_EnemyBase.GetRigidbody();
             m_TriggerCalled = false;
-            m_Animator.SetBool(m_AnimationHash, true);
             m_Player = PlayerManager.Instance.m_Player.transform;
         }
 
@@ -38,11 +39,17 @@ namespace Enemy
         public virtual void Exit()
         {
             m_Animator.SetBool(m_AnimationHash, false);
+            m_EnemyBase.AssignLastAnimationName(m_AnimationHash);
         }
         
         public virtual void AnimationFinishTrigger()
         {
             m_TriggerCalled = true;
+        }
+
+        public AnimatorStateInfo GetAnimatorStateInfo()
+        {
+            return m_Animator.GetCurrentAnimatorStateInfo(0);
         }
     }
 }
