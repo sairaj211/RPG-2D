@@ -3679,6 +3679,10 @@ PrefabInstance:
       propertyPath: m_MaxHealth
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 637577847248357763, guid: 503610322dac55e45af27fd07a6c6917, type: 3}
+      propertyPath: m_Damage.m_BaseValue
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2379653145730385020, guid: 503610322dac55e45af27fd07a6c6917, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.31
@@ -4003,12 +4007,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5768472328625725254, guid: 8d052f29a96e4144a9a1f0d55f298be5, type: 3}
+      propertyPath: m_Armor.m_BaseValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5768472328625725254, guid: 8d052f29a96e4144a9a1f0d55f298be5, type: 3}
       propertyPath: m_Damage.m_BaseValue
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5768472328625725254, guid: 8d052f29a96e4144a9a1f0d55f298be5, type: 3}
+      propertyPath: m_Evasion.m_BaseValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5768472328625725254, guid: 8d052f29a96e4144a9a1f0d55f298be5, type: 3}
       propertyPath: m_MaxHealth.m_BaseValue
-      value: 20
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 6098425847294146901, guid: 8d052f29a96e4144a9a1f0d55f298be5, type: 3}
       propertyPath: m_Name
