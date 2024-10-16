@@ -23,6 +23,11 @@ public class Stat
         }
     }
 
+    public void SetDefaultValue(int _value)
+    {
+        m_BaseValue = _value;
+    }
+
     public void AddModifiers(int _modifier)
     {
         m_Modifiers.Add(_modifier);
