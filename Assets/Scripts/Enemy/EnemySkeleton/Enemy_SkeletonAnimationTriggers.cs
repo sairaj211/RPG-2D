@@ -21,7 +21,7 @@ namespace Enemy.EnemySkeleton
                 if (hit.TryGetComponent<Player.Player>(out var player))
                 {
                     PlayerStats _targetStats = player.GetComponent<PlayerStats>();
-                    m_Enemy.m_CharacterStats.CalculateDamage(_targetStats);
+                    m_Enemy.m_CharacterStats.CalculateAndApplyDamage(_targetStats);
                 }
             }
         }

@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -26,16 +27,27 @@ public class CharacterStats : MonoBehaviour
     public Stat m_IceDamage;
     public Stat m_ThunderDamage;
 
-    public bool m_IsIgnited;
-    public bool m_IsFrozen;
-    public bool m_IsShocked;
+    public bool m_IsIgnited;    // take damage over time 
+    public bool m_IsFrozen;     // freeze for certain duration  or can decrease armour by 20%
+    public bool m_IsShocked;    // reduce accuracy by 20%
     
     private int m_CurrentHealth;
 
     private Entity m_Entity;
+    
+    public float m_MaxIgniteDuration;
+    public float m_MaxFrozenDuration;
+    public float m_MaxShockDuration;
 
+    private float m_IgnitedTimer;
+    private float m_IgniteDamageCooldown = 0.3f;
+    private float m_IgniteDamageTimer = Mathf.Infinity;
+    private int m_IgniteDamage;
 
+    private float m_FrozenTimer;
+    private float m_ShockedTimer;
 
+    
     protected virtual void Start()
     {
         m_Entity = GetComponent<Entity>();
@@ -43,11 +55,37 @@ public class CharacterStats : MonoBehaviour
         m_CritPower.SetDefaultValue(150);
     }
 
-    public void CalculateDamage(CharacterStats _targetStats)
+    protected virtual void Update()
     {
-        int basicStatDamage = CalculateBaseStatsDamage(_targetStats);
-        int magicalDamage = CalculateMagicalDamage(_targetStats);
-        int totalDamage = basicStatDamage + magicalDamage;
+        UpdateTimers();
+        HandleIgniteDamage();
+    }
+    
+    private void UpdateTimers()
+    {
+        m_IgnitedTimer -= Time.deltaTime;
+        m_FrozenTimer -= Time.deltaTime;
+        m_ShockedTimer -= Time.deltaTime;
+        m_IgniteDamageTimer -= Time.deltaTime;
+
+        m_IsIgnited = m_IgnitedTimer >= 0f;
+        m_IsFrozen = m_FrozenTimer >= 0f;
+        m_IsShocked = m_ShockedTimer >= 0f;
+    }
+    
+    private void HandleIgniteDamage()
+    {
+        if (m_IgniteDamageTimer < 0f && m_IsIgnited)
+        {
+            Debug.Log("Take Ignite damage");
+            TakeDamage(m_IgniteDamage);
+            m_IgniteDamageTimer = m_IgniteDamageCooldown;
+        }
+    }
+
+    public void CalculateAndApplyDamage(CharacterStats _targetStats)
+    {
+        int totalDamage = CalculateBaseStatsDamage(_targetStats) + CalculateMagicalDamage(_targetStats);
         _targetStats.TakeDamage(totalDamage);
     }
 
@@ -75,8 +113,7 @@ public class CharacterStats : MonoBehaviour
 
         int totalMagicalDamage  = fireDamage + iceDamage + thunderDamage + m_Intelligence.Value;
         totalMagicalDamage  = CheckTargetMagicResistance(_targetStats, totalMagicalDamage );
-
-      
+        
         
         // Check if all damage values are zero
         if (totalMagicalDamage  <= 0)
@@ -96,20 +133,37 @@ public class CharacterStats : MonoBehaviour
         }
         else
         {
-            _targetStats.ApplyEffect(canApplyIgnite, canApplyChill, canApplyShock);
+            _targetStats.ApplyEffect(canApplyIgnite, canApplyChill, canApplyShock, this);
         }
 
+        if (canApplyIgnite)
+        {
+            _targetStats.SetupIgniteDamage(Mathf.RoundToInt(fireDamage * 0.05f));
+        }
         
         return totalMagicalDamage ;
     }
 
-    private void ApplyEffect(bool _canApplyIgnite, bool _canApplyChill, bool _canApplyShock)
+    private void ApplyEffect(bool _canApplyIgnite, bool _canApplyChill, bool _canApplyShock, CharacterStats _AttackersStats)
     {
         if(m_IsIgnited || m_IsFrozen || m_IsShocked) return;
 
-        m_IsIgnited = _canApplyIgnite;
-        m_IsFrozen = _canApplyChill;
-        m_IsShocked = _canApplyShock;
+        if (_canApplyIgnite)
+        {
+            m_IgnitedTimer = _AttackersStats.m_MaxIgniteDuration;
+            m_IgniteDamageTimer = m_IgniteDamageCooldown;
+            m_IsIgnited = true;
+        }
+        if (_canApplyChill)
+        {
+            m_FrozenTimer = _AttackersStats.m_MaxFrozenDuration;
+            m_IsFrozen = true;
+        }
+        if (_canApplyShock)
+        {
+            m_ShockedTimer = _AttackersStats.m_MaxShockDuration;
+            m_IsShocked = true;
+        }
     }
     
     private void ApplyRandomEffect(int fireDamage, int iceDamage, int thunderDamage, CharacterStats _targetStats)
@@ -124,39 +178,53 @@ public class CharacterStats : MonoBehaviour
         if (randValue < 0.33f && fireDamage > 0)
         {
             Debug.Log("Apply Ignite");
-            _targetStats.ApplyEffect(true, false, false);
+            _targetStats.ApplyEffect(true, false, false, this);
         }
         else if (randValue < 0.66f && iceDamage > 0)
         {
             Debug.Log("Apply Chill");
-            _targetStats.ApplyEffect(false, true, false);
+            _targetStats.ApplyEffect(false, true, false, this);
         }
         else if (thunderDamage > 0)
         {
             Debug.Log("Apply Shock");
-            _targetStats.ApplyEffect(false, false, true);
+            _targetStats.ApplyEffect(false, false, true, this);
         }
     }
 
-    private static int CheckTargetMagicResistance(CharacterStats _targetStats, int totalMagicalDamge)
-    {
+    public void SetupIgniteDamage(int _damage) => m_IgniteDamage = _damage;
 
+    private int CheckTargetMagicResistance(CharacterStats _targetStats, int totalMagicalDamge)
+    {
         totalMagicalDamge -= _targetStats.m_MagicResistance.Value + (_targetStats.m_Intelligence.Value * 3);
         totalMagicalDamge = Mathf.Max(totalMagicalDamge, 0);
 
         return totalMagicalDamge;
     }
 
-    private static int CheckTargetArmor(CharacterStats _targetStats, int _totalDamage)
+    private int CheckTargetArmor(CharacterStats _targetStats, int _totalDamage)
     {
-        _totalDamage -= _targetStats.m_Armor.Value;
+        if (m_IsFrozen)
+        {
+            _totalDamage -= Mathf.RoundToInt(_targetStats.m_Armor.Value * 0.8f);
+        }
+        else
+        {
+            _totalDamage -= _targetStats.m_Armor.Value;
+        }
+        
         _totalDamage = Mathf.Max(_totalDamage, 0);
         return _totalDamage;
     }
 
-    private static bool CanEvade(CharacterStats _targetStats)
+    private bool CanEvade(CharacterStats _targetStats)
     {
         int totalEvasion = _targetStats.m_Evasion.Value + _targetStats.m_Agility.Value;
+
+        if (m_IsShocked)
+        {
+            totalEvasion += 20;
+        }
 
         if (Random.Range(0, 100) < totalEvasion)
         {
@@ -166,17 +234,7 @@ public class CharacterStats : MonoBehaviour
         return false;
     }
 
-    private bool CanCrit()
-    {
-        int totalCritChance = m_CritChance.Value;
-
-        if (Random.Range(0, 100) <= totalCritChance)
-        {
-            return true;
-        }
-
-        return false;
-    }
+    private bool CanCrit() => Random.Range(0, 100) <= m_CritChance.Value;
 
     private int CalculateCritDamage(int _damage)
     {
