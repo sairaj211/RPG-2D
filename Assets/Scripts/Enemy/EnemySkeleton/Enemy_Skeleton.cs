@@ -32,7 +32,6 @@ namespace Enemy.EnemySkeleton
             m_StunnedState = new SkeletonStunnedState(this, m_EnemyStateMachine, EntityStatesAnimationHash.STUNNED, this);
             m_DeadState = new SkeletonDeadState(this, m_EnemyStateMachine, EntityStatesAnimationHash.SKELETON_DEATH, this);
             
-            OnEnemyDeathEvent += OnEnemyDeathEventCallback;
         }
 
 
@@ -40,6 +39,8 @@ namespace Enemy.EnemySkeleton
         {
             base.Start();
             m_EnemyStateMachine.Initialize(m_IdleState);
+            m_CharacterStats.OnDeathEvent += OnEnemyDeathEventCallback;
+            //    OnEnemyDeathEvent += OnEnemyDeathEventCallback;
         }
 
         protected override void Update()
@@ -65,7 +66,8 @@ namespace Enemy.EnemySkeleton
 
         private void OnDestroy()
         {
-            OnEnemyDeathEvent -= OnEnemyDeathEventCallback;
+     //       OnEnemyDeathEvent -= OnEnemyDeathEventCallback;
+            m_CharacterStats.OnDeathEvent -= OnEnemyDeathEventCallback;
         }
 
         private void OnEnemyDeathEventCallback()

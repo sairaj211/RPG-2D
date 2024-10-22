@@ -6,7 +6,7 @@ namespace Enemy
 {
     public class Enemy : Entity
     {
-        protected Action OnEnemyDeathEvent;
+    //    protected Action OnEnemyDeathEvent;
         
         [Header("Settings")] 
         public float m_MoveSpeed;
@@ -42,12 +42,12 @@ namespace Enemy
 
         private void OnEnable()
         {
-            OnDeathEvent += OnDeathEventCallback;
+            //OnDeathEvent += OnDeathEventCallback;
         }
 
         private void OnDisable()
         {
-            OnDeathEvent -= OnDeathEventCallback;
+         //   OnDeathEvent -= OnDeathEventCallback;
         }
 
         protected override void Start()
@@ -135,10 +135,10 @@ namespace Enemy
             StartCoroutine(FreezeTimeFor(_freezeTime));
         }
         
-        private void OnDeathEventCallback()
-        {
-            OnEnemyDeathEvent?.Invoke();
-        }
+        // private void OnDeathEventCallback()
+        // {
+        //     OnEnemyDeathEvent?.Invoke();
+        // }
 
         public virtual void AssignLastAnimationName(int _hash)
         {

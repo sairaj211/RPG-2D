@@ -7,7 +7,8 @@ using Input = UnityEngine.Windows.Input;
 
 public class Entity : MonoBehaviour
 {
-    protected Action OnDeathEvent;
+   // protected Action OnDeathEvent;
+    public Action OnFlippedEvent;
     
     [Header("Collision Info")] 
     public Transform m_AttackCheck;
@@ -184,6 +185,8 @@ public class Entity : MonoBehaviour
         m_FacingDireciton *= -1;
         m_IsFacingRight = !m_IsFacingRight;
         transform.Rotate(0, 180, 0);
+        
+        OnFlippedEvent?.Invoke();
     }
     public void FlipController(float _XDirection)
     {
@@ -198,10 +201,10 @@ public class Entity : MonoBehaviour
     }
     #endregion
 
-    public void Death()
-    {
-        OnDeathEvent?.Invoke();
-    }
+    // public void Death()
+    // {
+    //     OnDeathEvent?.Invoke();
+    // }
 
     public void DisableCollider()
     {

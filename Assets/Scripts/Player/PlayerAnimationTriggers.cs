@@ -12,6 +12,7 @@ public class PlayerAnimationTriggers : MonoBehaviour
 
     private void AttackTrigger()
     {
+        Debug.Log("Player :: Attack trigger called");
         Collider2D[] m_Collider2D = Physics2D.OverlapCircleAll(m_Player.m_AttackCheck.position, m_Player.m_AttackCheckRadius);
 
         foreach (Collider2D hit in m_Collider2D)

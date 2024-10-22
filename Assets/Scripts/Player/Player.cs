@@ -55,15 +55,10 @@ namespace Player
         #endregion
 
         public SkillManager m_SkillManager { get; private set; }
-
-        private void OnEnable()
-        {
-            OnDeathEvent += OnDeathEventCallback;
-        }
-
+        
         private void OnDisable()
         {
-            OnDeathEvent -= OnDeathEventCallback;
+            m_CharacterStats.OnDeathEvent -= OnDeathEventCallback;
         }
 
         protected override void Awake()
@@ -100,6 +95,7 @@ namespace Player
             base.SetSpeed(m_MoveSpeed);
             m_PlayerStateMachine.Initialize(m_IdleState);
             m_SkillManager = SkillManager.Instance;
+            m_CharacterStats.OnDeathEvent += OnDeathEventCallback;
         }
         
         private void OnDeathEventCallback()
@@ -167,7 +163,5 @@ namespace Player
         {
             m_PlayerStateMachine.ChangeState(m_AirState);
         }
-        
-        
     }
 }

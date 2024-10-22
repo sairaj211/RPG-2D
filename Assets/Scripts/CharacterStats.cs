@@ -5,6 +5,9 @@ using Random = UnityEngine.Random;
 
 public class CharacterStats : MonoBehaviour
 {
+    public Action OnHealthChangeEvent;
+    public Action OnDeathEvent;
+    
     [Header("Major Stats")] 
     public Stat m_Strength;         // 1 point increases damage by 1 and crit power by 1%
     public Stat m_Agility;          // 1 point increases evasion by 1% and crit chance by 1%
@@ -46,13 +49,18 @@ public class CharacterStats : MonoBehaviour
 
     private float m_FrozenTimer;
     private float m_ShockedTimer;
+    private bool m_HasDied;
 
-    
+    private void Awake()
+    {
+       m_CurrentHealth = GetMaxHealthValue();
+    }
+
     protected virtual void Start()
     {
         m_Entity = GetComponent<Entity>();
-        m_CurrentHealth = m_MaxHealth.Value;
         m_CritPower.SetDefaultValue(150);
+        m_HasDied = false;
     }
 
     protected virtual void Update()
@@ -78,7 +86,8 @@ public class CharacterStats : MonoBehaviour
         if (m_IgniteDamageTimer < 0f && m_IsIgnited)
         {
             Debug.Log("Take Ignite damage");
-            TakeDamage(m_IgniteDamage);
+            //TakeDamage(m_IgniteDamage);
+            DecreaseHealthBy(m_IgniteDamage);
             m_IgniteDamageTimer = m_IgniteDamageCooldown;
         }
     }
@@ -246,9 +255,11 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void TakeDamage(int _damage)
     {
+        if (m_HasDied) return;
+        
         Debug.Log("Take damage");
-        m_CurrentHealth -= _damage;
-
+        DecreaseHealthBy(_damage);
+        
         if (m_CurrentHealth <= 0)
         {
             Die();
@@ -258,13 +269,32 @@ public class CharacterStats : MonoBehaviour
         DamageEffect();
     }
 
+    protected void DecreaseHealthBy(int _damage)
+    {
+        m_CurrentHealth -= _damage;
+    
+        OnHealthChangeEvent?.Invoke();
+    }
+
     private void Die()
     {
-        m_Entity.Death();
+      //  m_Entity.Death();
+      m_HasDied = true;
+      OnDeathEvent?.Invoke();
     }
 
     private void DamageEffect()
     {
         m_Entity.DamageEffect();
+    }
+
+    public int GetMaxHealthValue()
+    {
+        return m_MaxHealth.Value + m_Vitality.Value * 3;
+    }
+
+    public int GetCurrentHealth()
+    {
+        return m_CurrentHealth;
     }
 }
