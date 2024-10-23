@@ -1,4 +1,5 @@
 using System;
+using Misc;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,6 +8,8 @@ public class CharacterStats : MonoBehaviour
 {
     public Action OnHealthChangeEvent;
     public Action OnDeathEvent;
+
+    private EntityFX m_EntityFX;
     
     [Header("Major Stats")] 
     public Stat m_Strength;         // 1 point increases damage by 1 and crit power by 1%
@@ -43,7 +46,7 @@ public class CharacterStats : MonoBehaviour
     public float m_MaxShockDuration;
 
     private float m_IgnitedTimer;
-    private float m_IgniteDamageCooldown = 0.3f;
+    private readonly float m_IgniteDamageCooldown = 0.3f;
     private float m_IgniteDamageTimer = Mathf.Infinity;
     private int m_IgniteDamage;
 
@@ -51,6 +54,8 @@ public class CharacterStats : MonoBehaviour
     private float m_ShockedTimer;
     private bool m_HasDied;
 
+    [SerializeField]private float m_SlowPercentage = 0.2f; 
+    
     private void Awake()
     {
        m_CurrentHealth = GetMaxHealthValue();
@@ -59,6 +64,7 @@ public class CharacterStats : MonoBehaviour
     protected virtual void Start()
     {
         m_Entity = GetComponent<Entity>();
+        m_EntityFX = GetComponent<EntityFX>();
         m_CritPower.SetDefaultValue(150);
         m_HasDied = false;
     }
@@ -86,7 +92,7 @@ public class CharacterStats : MonoBehaviour
         if (m_IgniteDamageTimer < 0f && m_IsIgnited)
         {
             Debug.Log("Take Ignite damage");
-            //TakeDamage(m_IgniteDamage);
+
             DecreaseHealthBy(m_IgniteDamage);
             m_IgniteDamageTimer = m_IgniteDamageCooldown;
         }
@@ -122,7 +128,6 @@ public class CharacterStats : MonoBehaviour
 
         int totalMagicalDamage  = fireDamage + iceDamage + thunderDamage + m_Intelligence.Value;
         totalMagicalDamage  = CheckTargetMagicResistance(_targetStats, totalMagicalDamage );
-        
         
         // Check if all damage values are zero
         if (totalMagicalDamage  <= 0)
@@ -162,16 +167,20 @@ public class CharacterStats : MonoBehaviour
             m_IgnitedTimer = _AttackersStats.m_MaxIgniteDuration;
             m_IgniteDamageTimer = m_IgniteDamageCooldown;
             m_IsIgnited = true;
+            m_EntityFX.IgniteFx(m_IgnitedTimer);
         }
         if (_canApplyChill)
         {
             m_FrozenTimer = _AttackersStats.m_MaxFrozenDuration;
             m_IsFrozen = true;
+            m_Entity.ApplySlowEffect(_AttackersStats.m_SlowPercentage, m_FrozenTimer);
+            m_EntityFX.ChillFx(m_FrozenTimer);
         }
         if (_canApplyShock)
         {
             m_ShockedTimer = _AttackersStats.m_MaxShockDuration;
             m_IsShocked = true;
+            m_EntityFX.ShockFx(m_ShockedTimer);
         }
     }
     

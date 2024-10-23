@@ -31,6 +31,9 @@ namespace Enemy
 
         public int m_LastAnimationHash;
         
+        private float m_EffectTimer;
+        private bool m_EffectApplied;
+        
         public EnemyStateMachine m_EnemyStateMachine { get; private set; }
         
         protected override void Awake()
@@ -38,16 +41,6 @@ namespace Enemy
             base.Awake();
             m_EnemyStateMachine = new EnemyStateMachine();
             m_DefaultMoveSpeed = m_MoveSpeed;
-        }
-
-        private void OnEnable()
-        {
-            //OnDeathEvent += OnDeathEventCallback;
-        }
-
-        private void OnDisable()
-        {
-         //   OnDeathEvent -= OnDeathEventCallback;
         }
 
         protected override void Start()
@@ -62,6 +55,17 @@ namespace Enemy
             base.Update();
 
             m_EnemyStateMachine.m_CurrentState.Update();
+            
+            if (m_EffectApplied)
+            {
+                m_EffectTimer -= Time.deltaTime;
+
+                if (m_EffectTimer < 0f)
+                {
+                    m_EffectApplied = false;
+                    ResetToDefaultValues();
+                }
+            }
         }
 
         public virtual void FreezeTime(bool _timeFrozen)
@@ -76,8 +80,26 @@ namespace Enemy
                 m_MoveSpeed = m_DefaultMoveSpeed;
                 this.GetAnimator().speed = 1f;
             }
-        } 
+        }
 
+        public override void ApplySlowEffect(float _slowPercentage, float _slowDuration)
+        {
+            float slowAmount = 1 - _slowPercentage;
+
+            m_MoveSpeed *= slowAmount;
+
+            GetAnimator().speed *= slowAmount;
+
+            m_EffectTimer = _slowDuration;
+            m_EffectApplied = true;
+        }
+
+        private void ResetToDefaultValues()
+        {
+            m_MoveSpeed =  m_DefaultMoveSpeed;
+            SetAnimationDefaultSpeed();
+        }
+        
         private IEnumerator FreezeTimeFor(float _seconds)
         {
             FreezeTime(true);

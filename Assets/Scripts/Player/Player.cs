@@ -31,6 +31,13 @@ namespace Player
         
         public GameObject m_Sword { get; private set; }
 
+        private float m_DefaultMoveSpeed;
+        private float m_DefaultJumpVelocity;
+        private float m_DefaultDashSpeed;
+
+        private float m_EffectTimer;
+        private bool m_EffectApplied;
+
 
         #region STATES
         public PlayerStateMachine m_PlayerStateMachine { get; private set; }
@@ -82,6 +89,10 @@ namespace Player
             m_PlayerCatchSwordState = new PlayerCatchSwordState(this, m_PlayerStateMachine, EntityStatesAnimationHash.SWORD_CATCH);
             m_PlayerBlackholeState = new PlayerBlackholeState(this, m_PlayerStateMachine, EntityStatesAnimationHash.JUMP);
             m_PlayerDeadState = new PlayerDeadState(this, m_PlayerStateMachine, EntityStatesAnimationHash.DIE);
+
+            m_DefaultMoveSpeed = m_MoveSpeed;
+            m_DefaultJumpVelocity = m_JumpVelocity;
+            m_DefaultDashSpeed = m_DashSpeed;
         }
 
         private void OnDestroy()
@@ -115,6 +126,17 @@ namespace Player
             {
                 m_SkillManager.m_CrystalSkill.CanUseSkill();
             }
+
+            if (m_EffectApplied)
+            {
+                m_EffectTimer -= Time.deltaTime;
+
+                if (m_EffectTimer < 0f)
+                {
+                    m_EffectApplied = false;
+                    ResetToDefaultValues();
+                }
+            }
         }
 
         public IEnumerator BusyFor(float _seconds)
@@ -146,6 +168,28 @@ namespace Player
             
                 m_PlayerStateMachine.ChangeState(m_DashState);
             }
+        }
+
+        public override void ApplySlowEffect(float _slowPercentage, float _slowDuration)
+        {
+            float slowAmount = 1 - _slowPercentage;
+
+            m_MoveSpeed *= slowAmount;
+            m_DashSpeed *= slowAmount;
+            m_JumpVelocity *= slowAmount;
+            GetAnimator().speed *= slowAmount;
+
+            m_EffectTimer = _slowDuration;
+            m_EffectApplied = true;
+        }
+
+        private void ResetToDefaultValues()
+        {
+            m_MoveSpeed =  m_DefaultMoveSpeed;
+            m_JumpVelocity = m_DefaultJumpVelocity;
+            m_DashSpeed = m_DefaultDashSpeed;
+
+            SetAnimationDefaultSpeed();
         }
 
         public void AssignNewSword(GameObject _sword)

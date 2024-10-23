@@ -5,7 +5,7 @@ using Misc;
 using UnityEngine;
 using Input = UnityEngine.Windows.Input;
 
-public class Entity : MonoBehaviour
+public abstract class Entity : MonoBehaviour
 {
    // protected Action OnDeathEvent;
     public Action OnFlippedEvent;
@@ -117,8 +117,6 @@ public class Entity : MonoBehaviour
         m_Rigidbody2D.velocity = new Vector2(0f, 0f);
     }
 
-    // }
-
     public void SetVelocity(float _x, float _y, bool _flip = true)
     {
         if (m_IsKnocked) return;
@@ -201,14 +199,16 @@ public class Entity : MonoBehaviour
     }
     #endregion
 
-    // public void Death()
-    // {
-    //     OnDeathEvent?.Invoke();
-    // }
-
     public void DisableCollider()
     {
         m_CapsuleCollider2D.enabled = false;
     }
-    
+
+    protected virtual void SetAnimationDefaultSpeed()
+    {
+        m_Animator.speed = 1;
+    }
+
+    public abstract void ApplySlowEffect(float _slowPercentage, float _slowDuration);
+
 }

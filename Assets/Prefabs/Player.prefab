@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 7590202826255826315}
   - component: {fileID: 441980667924574519}
   - component: {fileID: 2460085833341633122}
+  - component: {fileID: 9155592602518017099}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: EntityStatus_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,6 +103,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &9155592602518017099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628388339184202073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69abf84dc0a94e57801b5fe62ddbbec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1342595488090235473
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +553,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HitMaterial: {fileID: 2100000, guid: 60c3f90e90d7b2e4d922f0ad865e40c1, type: 2}
-  m_FlashTime: 0.2
+  m_FlashTime: 0.15
+  m_EffectsTicksPerSeconds: 0.2
+  m_IgniteColors:
+  - {r: 0.93962264, g: 0.13119246, b: 0.06205042, a: 1}
+  - {r: 0.9411765, g: 0.6618333, b: 0.062745094, a: 1}
+  - {r: 0.9411765, g: 0.4377501, b: 0.062745094, a: 1}
+  m_ChillColor: {r: 0.2679032, g: 0.62257653, b: 0.7433963, a: 1}
+  m_ShockColors:
+  - {r: 0.9245283, g: 0.77800685, b: 0.15176214, a: 1}
+  - {r: 0.8415094, g: 0.8089533, b: 0.50014234, a: 1}
+  - {r: 0.9617624, g: 1, b: 0, a: 1}
 --- !u!114 &5768472328625725254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,10 +586,10 @@ MonoBehaviour:
     m_BaseValue: 0
     m_Modifiers: 
   m_Vitality:
-    m_BaseValue: 0
+    m_BaseValue: 4
     m_Modifiers: 
   m_Damage:
-    m_BaseValue: 0
+    m_BaseValue: 10
     m_Modifiers: 
   m_CritPower:
     m_BaseValue: 0
@@ -575,7 +598,7 @@ MonoBehaviour:
     m_BaseValue: 0
     m_Modifiers: 
   m_MaxHealth:
-    m_BaseValue: 0
+    m_BaseValue: 500
     m_Modifiers: 
   m_Armor:
     m_BaseValue: 0
@@ -587,10 +610,10 @@ MonoBehaviour:
     m_BaseValue: 0
     m_Modifiers: 
   m_FireDamage:
-    m_BaseValue: 0
+    m_BaseValue: 1
     m_Modifiers: 
   m_IceDamage:
-    m_BaseValue: 0
+    m_BaseValue: 2
     m_Modifiers: 
   m_ThunderDamage:
     m_BaseValue: 0
@@ -598,9 +621,9 @@ MonoBehaviour:
   m_IsIgnited: 0
   m_IsFrozen: 0
   m_IsShocked: 0
-  m_MaxIgniteDuration: 0
-  m_MaxFrozenDuration: 0
-  m_MaxShockDuration: 0
+  m_MaxIgniteDuration: 1
+  m_MaxFrozenDuration: 1
+  m_MaxShockDuration: 1
 --- !u!1 &6763136239412402949
 GameObject:
   m_ObjectHideFlags: 0
