@@ -150,8 +150,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 187}
-  m_SizeDelta: {x: 160, y: 20}
+  m_AnchoredPosition: {x: 0, y: 195}
+  m_SizeDelta: {x: 220, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7545727679860691893
 MonoBehaviour:
@@ -266,10 +266,10 @@ RectTransform:
   - {fileID: 1970001208318476670}
   m_Father: {fileID: 1580613898930862266}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.25}
-  m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5297857416370571213
 GameObject:
@@ -624,6 +624,8 @@ MonoBehaviour:
   m_MaxIgniteDuration: 1
   m_MaxFrozenDuration: 1
   m_MaxShockDuration: 1
+  m_ThunderPrefab: {fileID: 6534580409772933678, guid: e7582dd6613c87c47885d5bce9672777, type: 3}
+  m_SlowPercentage: 0.2
 --- !u!1 &6763136239412402949
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,7 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.2100951, g: 1, b: 0.118867874, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -762,8 +764,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1580613898930862266}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.25}
-  m_AnchorMax: {x: 1, y: 0.75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

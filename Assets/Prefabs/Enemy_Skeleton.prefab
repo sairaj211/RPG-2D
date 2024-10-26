@@ -257,6 +257,22 @@ PrefabInstance:
       value: -0.935
       objectReference: {fileID: 0}
     - target: {fileID: 8179896835673908793, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
+      propertyPath: m_ThunderPrefab
+      value: 
+      objectReference: {fileID: 6534580409772933678, guid: e7582dd6613c87c47885d5bce9672777, type: 3}
+    - target: {fileID: 8179896835673908793, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
+      propertyPath: m_MaxShockDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179896835673908793, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
+      propertyPath: m_MaxFrozenDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179896835673908793, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
+      propertyPath: m_MaxIgniteDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179896835673908793, guid: 134dff95b64c41a408892e5b4d211637, type: 3}
       propertyPath: m_Damage.m_BaseValue
       value: 10
       objectReference: {fileID: 0}

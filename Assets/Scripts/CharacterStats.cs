@@ -49,16 +49,27 @@ public class CharacterStats : MonoBehaviour
     private readonly float m_IgniteDamageCooldown = 0.3f;
     private float m_IgniteDamageTimer = Mathf.Infinity;
     private int m_IgniteDamage;
+    private int m_ShockDamage;
+    
 
     private float m_FrozenTimer;
     private float m_ShockedTimer;
     private bool m_HasDied;
 
-    [SerializeField]private float m_SlowPercentage = 0.2f; 
+    [SerializeField] private GameObject m_ThunderPrefab;
+    [SerializeField]private float m_SlowPercentage = 0.2f;
+
+    private bool m_IsPlayer = false;
     
     private void Awake()
     {
        m_CurrentHealth = GetMaxHealthValue();
+
+       Player.Player player = GetComponent<Player.Player>();
+       if (player == null)
+       {
+           m_IsPlayer = true;
+       }
     }
 
     protected virtual void Start()
@@ -155,35 +166,94 @@ public class CharacterStats : MonoBehaviour
             _targetStats.SetupIgniteDamage(Mathf.RoundToInt(fireDamage * 0.05f));
         }
         
+        if (canApplyShock)
+        {
+            _targetStats.SetupShockDamage(Mathf.RoundToInt(thunderDamage * 0.1f));
+        }
+        
         return totalMagicalDamage ;
     }
 
     private void ApplyEffect(bool _canApplyIgnite, bool _canApplyChill, bool _canApplyShock, CharacterStats _AttackersStats)
     {
-        if(m_IsIgnited || m_IsFrozen || m_IsShocked) return;
-
-        if (_canApplyIgnite)
+        bool canApplyIgnite = !m_IsIgnited && !m_IsFrozen && !m_IsShocked;
+        bool canApplyChill = !m_IsIgnited && !m_IsFrozen && !m_IsShocked;
+        bool canApplyShock = !m_IsIgnited && !m_IsFrozen;
+        
+        if (_canApplyIgnite && canApplyIgnite)
         {
             m_IgnitedTimer = _AttackersStats.m_MaxIgniteDuration;
             m_IgniteDamageTimer = m_IgniteDamageCooldown;
             m_IsIgnited = true;
             m_EntityFX.IgniteFx(m_IgnitedTimer);
         }
-        if (_canApplyChill)
+        if (_canApplyChill && canApplyChill)
         {
             m_FrozenTimer = _AttackersStats.m_MaxFrozenDuration;
             m_IsFrozen = true;
             m_Entity.ApplySlowEffect(_AttackersStats.m_SlowPercentage, m_FrozenTimer);
             m_EntityFX.ChillFx(m_FrozenTimer);
         }
-        if (_canApplyShock)
+        if (_canApplyShock && canApplyShock)
         {
-            m_ShockedTimer = _AttackersStats.m_MaxShockDuration;
-            m_IsShocked = true;
-            m_EntityFX.ShockFx(m_ShockedTimer);
+            if (!m_IsShocked)
+            {
+                m_ShockedTimer = _AttackersStats.m_MaxShockDuration;
+                ApplyShockWithoutTimer();
+            }
+            else
+            {
+                if(!m_IsPlayer)
+                    return;
+
+                HitNearestEnemy();
+            }
         }
     }
-    
+
+    public void ApplyShockWithoutTimer()
+    {
+        m_IsShocked = true;
+        m_EntityFX.ShockFx(m_ShockedTimer);
+    }
+
+    private void HitNearestEnemy()
+    {
+
+        Collider2D[] m_Collider2D = Physics2D.OverlapCircleAll(transform.position, 25f);
+
+        float closestDistance = float.MaxValue;
+        Transform closestEnemy = null;
+
+        foreach (Collider2D hit in m_Collider2D)
+        {
+            if (hit.TryGetComponent(out Enemy.Enemy m_Enemy) &&
+                Vector2.Distance(transform.position, hit.transform.position) > 1f)
+            {
+                float distanceToEnemy = Vector2.Distance(transform.position, hit.transform.position);
+                {
+                    if (distanceToEnemy <= closestDistance)
+                    {
+                        closestEnemy = hit.transform;
+                        closestDistance = distanceToEnemy;
+                    }
+                }
+            }
+
+            if (closestEnemy == null)
+            {
+                closestEnemy = transform;
+            }
+        }
+
+        if (closestEnemy != null)
+        {
+            GameObject shockStrike = Instantiate(m_ThunderPrefab, transform.position, quaternion.identity);
+            shockStrike.GetComponent<ThunderStrikeController>()
+                .Setup(m_ShockDamage, closestEnemy.GetComponent<CharacterStats>());
+        }
+    }
+
     private void ApplyRandomEffect(int fireDamage, int iceDamage, int thunderDamage, CharacterStats _targetStats)
     {
         if (Mathf.Max(fireDamage, iceDamage, thunderDamage) <= 0)
@@ -211,6 +281,7 @@ public class CharacterStats : MonoBehaviour
     }
 
     public void SetupIgniteDamage(int _damage) => m_IgniteDamage = _damage;
+    public void SetupShockDamage(int _damage) => m_ShockDamage = _damage;
 
     private int CheckTargetMagicResistance(CharacterStats _targetStats, int totalMagicalDamge)
     {

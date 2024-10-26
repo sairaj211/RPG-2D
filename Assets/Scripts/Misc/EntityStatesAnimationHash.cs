@@ -32,4 +32,8 @@ public class EntityStatesAnimationHash
     //Crystal
     public static readonly int CRYSTAL_IDLE = Animator.StringToHash("CrystalIdle");
     public static readonly int CRYSTAL_EXPLODE = Animator.StringToHash("CrystalExplode");
+    
+    //Thunder Hit
+    public static readonly int THUNDER_HIT = Animator.StringToHash("ThunderHit");
+
 }
