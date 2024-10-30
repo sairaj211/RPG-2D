@@ -104,7 +104,7 @@ namespace Player.Skills
                     break;
             }
             
-            m_SwordSkillController.SetUpSword(m_FinalDirection, m_SwordGravity, m_Player);
+            m_SwordSkillController.SetUpSword(m_FinalDirection, m_SwordGravity);
             
             m_Player.AssignNewSword(m_Sword);
             

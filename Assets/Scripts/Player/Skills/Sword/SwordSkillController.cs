@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Player.Skills.Sword
 {
-    public class SwordSkillController : MonoBehaviour
+    public class SwordSkillController : BaseSkillController
     {
         [SerializeField] private float m_MaxReturnSpeed = 12f;
         [SerializeField] private float m_MinReturnSpeed = 12f;
@@ -16,7 +16,9 @@ namespace Player.Skills.Sword
         private Animator m_Animator;
         private Rigidbody2D m_Rigidbody2D;
         private BoxCollider2D m_BoxCollider2D;
-        private Player m_Player;
+        
+        //TODO: remove this 
+       // private new Player m_PlayerTest;
 
         private bool m_CanRotate;
         private bool m_IsReturning;
@@ -59,9 +61,8 @@ namespace Player.Skills.Sword
             m_BoxCollider2D = GetComponent<BoxCollider2D>();
         }
 
-        public void SetUpSword(Vector2 _direction, float _gravityScale, Player _player)
+        public void SetUpSword(Vector2 _direction, float _gravityScale)
         {
-            m_Player = _player;
             m_Rigidbody2D.velocity = _direction;
             m_Rigidbody2D.gravityScale = _gravityScale;
 
@@ -231,6 +232,7 @@ namespace Player.Skills.Sword
 
         private void DealDamage(Enemy.Enemy enemy)
         {
+            m_Player.m_CharacterStats.CalculateAndApplyDamage(enemy.m_CharacterStats, new DamageType(true, true));
             enemy.DamageEffect(m_FreezeTime);
         }
 

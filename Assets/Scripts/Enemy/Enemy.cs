@@ -100,14 +100,14 @@ namespace Enemy
             SetAnimationDefaultSpeed();
         }
         
-        private IEnumerator FreezeTimeFor(float _seconds)
-        {
-            FreezeTime(true);
-
-            yield return new WaitForSeconds(_seconds);
-            
-            FreezeTime(false);
-        }
+        // private IEnumerator FreezeTimeFor(float _seconds)
+        // {
+        //     FreezeTime(true);
+        //
+        //     yield return new WaitForSeconds(_seconds);
+        //     
+        //     FreezeTime(false);
+        // }
         
         public void AnimationTrigger() => m_EnemyStateMachine.m_CurrentState.AnimationFinishTrigger();
 
@@ -148,14 +148,14 @@ namespace Enemy
             Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + m_AttackDistance * m_FacingDireciton, transform.position.y));
         }
 
-        public override void DamageEffect(float _freezeTime)
-        {
-           // Debug.Log("DAMAGE TAKEN");
-            
-            base.DamageEffect();
-            
-            StartCoroutine(FreezeTimeFor(_freezeTime));
-        }
+        // public override void DamageEffect(float _freezeTime)
+        // {
+        //    // Debug.Log("DAMAGE TAKEN");
+        //     
+        //     base.DamageEffect();
+        //     
+        //     StartCoroutine(FreezeTimeFor(_freezeTime));
+        // }
         
         // private void OnDeathEventCallback()
         // {

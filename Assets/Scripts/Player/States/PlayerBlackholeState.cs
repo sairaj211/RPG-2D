@@ -54,7 +54,7 @@ namespace Player
         {
             base.Exit();
             
-            m_Player.MakeTransparent(false);
+            m_Player.m_EntityFX.MakeTransparent(false);
 
             m_Rigidbody2D.gravityScale = m_DefaultGravity;
         }

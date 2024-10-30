@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 namespace Player.Skills.Blackhole
 {
-    public class BlackholeSkillController : MonoBehaviour
+    public class BlackholeSkillController : BaseSkillController
     {
         public static event Action OnHotKeyPressedEvent;
         
@@ -36,7 +36,7 @@ namespace Player.Skills.Blackhole
 
              if (SkillManager.Instance.m_CloneSKill.m_CanCreateCrystalInstead)
              {
-                 PlayerManager.Instance.m_Player.MakeTransparent(false);
+                 PlayerManager.Instance.m_Player.m_EntityFX.MakeTransparent(false);
              }
         }
         
@@ -75,7 +75,7 @@ namespace Player.Skills.Blackhole
         {
             if(m_Targets.Count <= 0) return;
             
-            PlayerManager.Instance.m_Player.MakeTransparent(!SkillManager.Instance.m_CloneSKill.m_CanCreateCrystalInstead);
+            PlayerManager.Instance.m_Player.m_EntityFX.MakeTransparent(!SkillManager.Instance.m_CloneSKill.m_CanCreateCrystalInstead);
 
             m_CreateClonesAndAttack = true;
         }

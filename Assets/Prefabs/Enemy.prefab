@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 2902276592020271136}
   - component: {fileID: 3314086163239946528}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Health_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -477,6 +477,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HitMaterial: {fileID: 2100000, guid: 60c3f90e90d7b2e4d922f0ad865e40c1, type: 2}
   m_FlashTime: 0.2
+  m_EffectsTicksPerSeconds: 0
+  m_IgniteColors: []
+  m_ChillColor: {r: 0, g: 0, b: 0, a: 0}
+  m_ShockColors: []
 --- !u!114 &8179896835673908793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,6 +541,8 @@ MonoBehaviour:
   m_MaxIgniteDuration: 0
   m_MaxFrozenDuration: 0
   m_MaxShockDuration: 0
+  m_ThunderPrefab: {fileID: 0}
+  m_SlowPercentage: 0.2
 --- !u!1 &6304823609883280615
 GameObject:
   m_ObjectHideFlags: 0

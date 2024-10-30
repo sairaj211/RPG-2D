@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace Player.Skills
 {
-    public class CloneSkillController : MonoBehaviour
+    public class CloneSkillController : BaseSkillController
     {
         [SerializeField] private float m_ColorFadeSpeed;
 
@@ -96,7 +96,9 @@ namespace Player.Skills
             {
                 if (hit.TryGetComponent<Enemy.Enemy>(out var enemy))
                 {
-                    enemy.DamageEffect();
+                   // enemy.DamageEffect();
+                   
+                   m_Player.m_CharacterStats.CalculateAndApplyDamage(enemy.m_CharacterStats, new DamageType(true, true));
                     
                     if (m_CanDuplicateClone)
                     {

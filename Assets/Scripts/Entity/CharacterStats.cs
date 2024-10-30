@@ -1,8 +1,21 @@
 using System;
 using Misc;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
+
+public struct DamageType
+{
+    public bool m_IsPhysical;
+    public bool m_IsMagical;
+
+    public DamageType(bool _isPhysical, bool _isMagical)
+    {
+        m_IsPhysical = _isPhysical;
+        m_IsMagical = _isMagical;
+    }
+}
 
 public class CharacterStats : MonoBehaviour
 {
@@ -109,13 +122,31 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    public void CalculateAndApplyDamage(CharacterStats _targetStats)
+    public void CalculateAndApplyDamage(CharacterStats _targetStats, DamageType _damageType)
     {
-        int totalDamage = CalculateBaseStatsDamage(_targetStats) + CalculateMagicalDamage(_targetStats);
+        int totalDamage = 0;
+        int physicalDamage = 0;
+        int magicalDamage = 0;
+        
+        if (_damageType.m_IsPhysical)
+        {
+            physicalDamage = CalculatePhysicalDamage(_targetStats);
+        }
+
+        if (_damageType.m_IsMagical)
+        {
+            magicalDamage = CalculateMagicalDamage(_targetStats);
+        }
+        
+        Debug.Log("PD" + physicalDamage);
+        Debug.Log("MD" + magicalDamage);
+        
+        totalDamage = physicalDamage + magicalDamage;
+        
         _targetStats.TakeDamage(totalDamage);
     }
 
-    public virtual int CalculateBaseStatsDamage(CharacterStats _targetStats)
+    public virtual int CalculatePhysicalDamage(CharacterStats _targetStats)
     {
         if (CanEvade(_targetStats)) return 0;
         
@@ -340,12 +371,6 @@ public class CharacterStats : MonoBehaviour
         Debug.Log("Take damage");
         DecreaseHealthBy(_damage);
         
-        if (m_CurrentHealth <= 0)
-        {
-            Die();
-            return;
-        }
-        
         DamageEffect();
     }
 
@@ -354,6 +379,11 @@ public class CharacterStats : MonoBehaviour
         m_CurrentHealth -= _damage;
     
         OnHealthChangeEvent?.Invoke();
+        
+        if (m_CurrentHealth <= 0)
+        {
+            Die();
+        }
     }
 
     private void Die()
@@ -365,7 +395,7 @@ public class CharacterStats : MonoBehaviour
 
     private void DamageEffect()
     {
-        m_Entity.DamageEffect();
+        m_Entity.DamageEffectAndImpact();
     }
 
     public int GetMaxHealthValue()

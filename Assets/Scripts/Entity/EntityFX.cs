@@ -90,7 +90,18 @@ namespace Misc
             }
             ResetBlink();
         }
-
+    
+        public void MakeTransparent(bool _isTransparent)
+        {
+            if (_isTransparent)
+            {
+                m_SpriteRenderer.color = Color.clear;
+            }
+            else
+            {
+                m_SpriteRenderer.color = Color.white;
+            }
+        }
 
         private void IgniteColor()
         {

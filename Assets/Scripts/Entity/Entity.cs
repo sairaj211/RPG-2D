@@ -59,24 +59,12 @@ public abstract class Entity : MonoBehaviour
       //  ApplyMovement();
     }
 
-    public virtual void DamageEffect()
+    public void DamageEffectAndImpact()
     {
         m_EntityFX.StartCoroutine(m_EntityFX.FlashFX());
         StartCoroutine(HitKnockback());
     }
-    
-    public void MakeTransparent(bool _isTransparent)
-    {
-        if (_isTransparent)
-        {
-            m_SpriteRenderer.color = Color.clear;
-        }
-        else
-        {
-            m_SpriteRenderer.color = Color.white;
-        }
-    }
-    
+
     public virtual void DamageEffect(float _freezeTime){}
 
     private IEnumerator HitKnockback()

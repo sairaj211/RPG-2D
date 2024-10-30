@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace Player.Skills.Crystal
 {
-    public class CrystalSkillController : MonoBehaviour
+    public class CrystalSkillController : BaseSkillController
     {
         [SerializeField] private bool m_CanGrow;
         [SerializeField] private float m_GrowSpeed;
@@ -118,7 +118,8 @@ namespace Player.Skills.Crystal
             {
                 if (hit.TryGetComponent<Enemy.Enemy>(out var enemy))
                 {
-                    enemy.DamageEffect();
+                    //enemy.DamageEffect();
+                    m_Player.m_CharacterStats.CalculateAndApplyDamage(enemy.m_CharacterStats, new DamageType(false, true));
                 }
             }
         }
