@@ -40,6 +40,6 @@ public class PlayerDashState : PlayerState
         
         m_Player.m_SkillManager.m_CloneSKill.CreateCloneOnDashEnd();
         
-        m_Player.SetVelocity(0f, m_Rigidbody2D.velocityY);
+        m_Player.SetVelocity(0f, m_Rigidbody2D.linearVelocityY);
     }
 }

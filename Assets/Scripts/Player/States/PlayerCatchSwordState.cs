@@ -25,8 +25,8 @@ public class PlayerCatchSwordState : PlayerState
             m_Player.Flip();
         }
 
-        m_Rigidbody2D.velocity = new Vector2(m_Player.m_SwordReturnImpact * -m_Player.m_FacingDireciton,
-            m_Rigidbody2D.velocityY);
+        m_Rigidbody2D.linearVelocity = new Vector2(m_Player.m_SwordReturnImpact * -m_Player.m_FacingDireciton,
+            m_Rigidbody2D.linearVelocityY);
     }
 
     public override void Update()

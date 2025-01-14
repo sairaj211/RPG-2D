@@ -4,10 +4,10 @@ namespace Enemy.EnemySkeleton
 {
     public class SkeletonBattleState : EnemyState
     {
-        private Enemy_Skeleton m_EnemySkeleton;
+        private EnemySkeleton m_EnemySkeleton;
         private float m_AttackTimer = 0f;
 
-        public SkeletonBattleState(Enemy _enemyBase, EnemyStateMachine _enemyStateMachine, int _animHash, Enemy_Skeleton _skeleton) 
+        public SkeletonBattleState(Enemy _enemyBase, EnemyStateMachine _enemyStateMachine, int _animHash, EnemySkeleton _skeleton) 
             : base(_enemyBase, _enemyStateMachine, _animHash)
         {
             m_EnemySkeleton = _skeleton;
@@ -49,7 +49,7 @@ namespace Enemy.EnemySkeleton
             // Calculate direction to the player
             Vector2 directionToPlayer = (m_Player.position - m_EnemySkeleton.transform.position).normalized;
             
-            m_EnemySkeleton.SetVelocity(m_EnemySkeleton.m_MoveSpeed * directionToPlayer.x, m_Rigidbody2D.velocityY);
+            m_EnemySkeleton.SetVelocity(m_EnemySkeleton.m_MoveSpeed * directionToPlayer.x, m_Rigidbody2D.linearVelocityY);
         }
                 
         private bool CanAttack()

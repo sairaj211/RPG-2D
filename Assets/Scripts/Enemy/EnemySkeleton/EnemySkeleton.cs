@@ -6,7 +6,7 @@ using Input = UnityEngine.Input;
 
 namespace Enemy.EnemySkeleton
 {
-    public class Enemy_Skeleton : Enemy
+    public class EnemySkeleton : Enemy
     {
 
         [SerializeField] public float m_DestroyTimer;

@@ -2,7 +2,7 @@
 {
     public class SkeletonMoveState : SkeletonGroundedState
     {
-        public SkeletonMoveState(Enemy _enemyBase, EnemyStateMachine _enemyStateMachine, int _animHash, Enemy_Skeleton _skeleton) 
+        public SkeletonMoveState(Enemy _enemyBase, EnemyStateMachine _enemyStateMachine, int _animHash, EnemySkeleton _skeleton) 
             : base(_enemyBase, _enemyStateMachine, _animHash, _skeleton)
         {
         }
@@ -10,7 +10,7 @@
         {
             base.Update();
             
-            m_EnemySkeleton.SetVelocity(m_EnemySkeleton.m_MoveSpeed * m_EnemySkeleton.m_FacingDireciton, base.m_Rigidbody2D.velocityY);
+            m_EnemySkeleton.SetVelocity(m_EnemySkeleton.m_MoveSpeed * m_EnemySkeleton.m_FacingDireciton, base.m_Rigidbody2D.linearVelocityY);
             
             if (m_EnemySkeleton.IsWallDetected() || !m_EnemySkeleton.IsGrounded())
             {

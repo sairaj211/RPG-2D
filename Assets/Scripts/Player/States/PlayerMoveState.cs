@@ -12,7 +12,7 @@ public class PlayerMoveState : PlayerGroundedState
     {
         base.Update();
 
-        m_Player.SetVelocity(m_InputMovement.x * m_Player.m_MoveSpeed, base.m_Rigidbody2D.velocityY);
+        m_Player.SetVelocity(m_InputMovement.x * m_Player.m_MoveSpeed, base.m_Rigidbody2D.linearVelocityY);
 
         //m_Player.HandleMovement(Mathf.MoveTowards(m_Rigidbody2D.velocityX, m_InputMovement.x * m_Player.m_MoveSpeed, Time.fixedDeltaTime));
         

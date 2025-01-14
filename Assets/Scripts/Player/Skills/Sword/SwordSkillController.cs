@@ -63,10 +63,10 @@ namespace Player.Skills.Sword
 
         public void SetUpSword(Vector2 _direction, float _gravityScale)
         {
-            m_Rigidbody2D.velocity = _direction;
+            m_Rigidbody2D.linearVelocity = _direction;
             m_Rigidbody2D.gravityScale = _gravityScale;
 
-            m_SpinDirection = Mathf.Clamp(m_Rigidbody2D.velocityX, -1f, 1f);
+            m_SpinDirection = Mathf.Clamp(m_Rigidbody2D.linearVelocityX, -1f, 1f);
         }
 
         public void SetupBounceSword(bool _isBouncing, int _numberOfBounces)
@@ -106,7 +106,7 @@ namespace Player.Skills.Sword
         {
             if (m_CanRotate)
             {
-                transform.right = m_Rigidbody2D.velocity;
+                transform.right = m_Rigidbody2D.linearVelocity;
             }
 
             if (m_IsReturning)
@@ -283,7 +283,7 @@ namespace Player.Skills.Sword
             m_CanRotate = false;
             m_BoxCollider2D.enabled = false;
 
-            m_Rigidbody2D.isKinematic = true;
+            m_Rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
             m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
 
             if (m_IsBouncing && m_EnemyTarget.Count > 0)

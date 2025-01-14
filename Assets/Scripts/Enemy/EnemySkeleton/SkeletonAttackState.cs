@@ -4,10 +4,10 @@ namespace Enemy.EnemySkeleton
 {
     public class SkeletonAttackState : EnemyState
     {
-        private Enemy_Skeleton m_EnemySkeleton;
+        private EnemySkeleton m_EnemySkeleton;
 
         
-        public SkeletonAttackState(Enemy _enemyBase, EnemyStateMachine _enemyStateMachine, int _animHash, Enemy_Skeleton _skeleton)
+        public SkeletonAttackState(Enemy _enemyBase, EnemyStateMachine _enemyStateMachine, int _animHash, EnemySkeleton _skeleton)
             : base(_enemyBase, _enemyStateMachine, _animHash)
         {
             m_EnemySkeleton = _skeleton;

@@ -2,9 +2,9 @@
 {
     public class SkeletonGroundedState : EnemyState
     {
-        protected readonly Enemy_Skeleton m_EnemySkeleton;
+        protected readonly EnemySkeleton m_EnemySkeleton;
 
-        protected SkeletonGroundedState(Enemy _enemyBase, EnemyStateMachine _enemyStateMachine, int _animHash, Enemy_Skeleton _skeleton) 
+        protected SkeletonGroundedState(Enemy _enemyBase, EnemyStateMachine _enemyStateMachine, int _animHash, EnemySkeleton _skeleton) 
             : base(_enemyBase, _enemyStateMachine, _animHash)
         {
             m_EnemySkeleton = _skeleton;

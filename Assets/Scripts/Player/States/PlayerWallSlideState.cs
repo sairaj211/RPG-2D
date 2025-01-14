@@ -33,7 +33,7 @@ public class PlayerWallSlideState : PlayerState
         {
             moveDownSpeed = 1f;
         }
-        m_Player.SetVelocity(0, m_Rigidbody2D.velocityY * moveDownSpeed);
+        m_Player.SetVelocity(0, m_Rigidbody2D.linearVelocityY * moveDownSpeed);
         
         if (m_Player.IsGrounded())
         {

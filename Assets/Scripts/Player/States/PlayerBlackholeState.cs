@@ -28,12 +28,12 @@ namespace Player
 
             if (m_StateTimer > 0f)
             {
-                m_Rigidbody2D.velocity = new Vector2(0, 15f);
+                m_Rigidbody2D.linearVelocity = new Vector2(0, 15f);
             }
 
             if (m_StateTimer < 0f)
             {
-                m_Rigidbody2D.velocity = new Vector2(0, -0.1f);
+                m_Rigidbody2D.linearVelocity = new Vector2(0, -0.1f);
 
                 if (!m_SkillUsed)
                 {

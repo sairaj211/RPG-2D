@@ -71,7 +71,7 @@ public abstract class Entity : MonoBehaviour
     {
         m_IsKnocked = true;
 
-        m_Rigidbody2D.velocity = new Vector2(m_KnockbackDirection.x * -m_FacingDireciton, m_KnockbackDirection.y);
+        m_Rigidbody2D.linearVelocity = new Vector2(m_KnockbackDirection.x * -m_FacingDireciton, m_KnockbackDirection.y);
 
         yield return new WaitForSeconds(m_KnockbackDuration);
 
@@ -91,7 +91,7 @@ public abstract class Entity : MonoBehaviour
 
     private void ApplyMovement()
     {
-        m_Rigidbody2D.velocity = m_frameVelocity;
+        m_Rigidbody2D.linearVelocity = m_frameVelocity;
     }
     
     #region SETTERS
@@ -102,7 +102,7 @@ public abstract class Entity : MonoBehaviour
 
        // m_frameVelocity = new Vector2(0f, 0f).normalized; 
        // Movement();
-        m_Rigidbody2D.velocity = new Vector2(0f, 0f);
+        m_Rigidbody2D.linearVelocity = new Vector2(0f, 0f);
     }
 
     public void SetVelocity(float _x, float _y, bool _flip = true)
@@ -114,7 +114,7 @@ public abstract class Entity : MonoBehaviour
             FlipController(_x);
         }
 
-        m_Rigidbody2D.velocity = new Vector2(_x, _y); 
+        m_Rigidbody2D.linearVelocity = new Vector2(_x, _y); 
        // m_frameVelocity = new Vector2(_x, _y).normalized; 
      //   Movement();
     }

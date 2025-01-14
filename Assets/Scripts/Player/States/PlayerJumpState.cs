@@ -11,14 +11,14 @@ public class PlayerJumpState : PlayerState
     {
         base.Enter();
 
-        base.m_Rigidbody2D.velocity = Vector2.up * m_Player.m_JumpVelocity;
+        base.m_Rigidbody2D.linearVelocity = Vector2.up * m_Player.m_JumpVelocity;
     }
 
     public override void Update()
     {
         base.Update();
          
-        if (m_Rigidbody2D.velocityY < 0)
+        if (m_Rigidbody2D.linearVelocityY < 0)
         {
             m_PlayerStateMachine.ChangeState(m_Player.m_AirState);
         }

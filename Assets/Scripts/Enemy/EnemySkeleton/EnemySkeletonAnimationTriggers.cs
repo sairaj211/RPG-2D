@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Enemy.EnemySkeleton
 {
-    public class Enemy_SkeletonAnimationTriggers : MonoBehaviour
+    public class EnemySkeletonAnimationTriggers : MonoBehaviour
     {
         private Enemy m_Enemy => GetComponentInParent<Enemy>();
 

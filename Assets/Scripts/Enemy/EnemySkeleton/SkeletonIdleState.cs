@@ -2,7 +2,7 @@
 {
     public class SkeletonIdleState : SkeletonGroundedState
     {
-        public SkeletonIdleState(Enemy _enemyBase, EnemyStateMachine _enemyStateMachine, int _animHash, Enemy_Skeleton _skeleton) 
+        public SkeletonIdleState(Enemy _enemyBase, EnemyStateMachine _enemyStateMachine, int _animHash, EnemySkeleton _skeleton) 
             : base(_enemyBase, _enemyStateMachine, _animHash, _skeleton)
         {
         }

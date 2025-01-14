@@ -6,10 +6,10 @@ namespace Enemy.EnemySkeleton
 {
     public class SkeletonDeadState : EnemyState
     {
-        protected readonly Enemy_Skeleton m_EnemySkeleton;
+        protected readonly EnemySkeleton m_EnemySkeleton;
         private bool m_TriggerHit;
 
-        public SkeletonDeadState(Enemy _enemyBase, EnemyStateMachine _enemyStateMachine, int _animHash, Enemy_Skeleton _skeleton) 
+        public SkeletonDeadState(Enemy _enemyBase, EnemyStateMachine _enemyStateMachine, int _animHash, EnemySkeleton _skeleton) 
             : base(_enemyBase, _enemyStateMachine, _animHash)
         {
             m_EnemySkeleton = _skeleton;
