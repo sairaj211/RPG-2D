@@ -33,7 +33,15 @@ public class ItemObject : MonoBehaviour
     {
         if (_collider2D.TryGetComponent(out Player.Player player))
         {
-            InventoryManager.Instance.AddItem(m_ItemDataSO);
+            if (m_ItemDataSO.m_ItemType == ItemType.Material)
+            {
+                InventoryManager.Instance.AddItem(m_ItemDataSO);
+            }
+            else if (m_ItemDataSO.m_ItemType == ItemType.Equipment)
+            {
+                StashManager.Instance.AddItem(m_ItemDataSO);
+            }
+
             Destroy(gameObject);
         }
     }
